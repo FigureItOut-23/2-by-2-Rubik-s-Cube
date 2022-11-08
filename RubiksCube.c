@@ -13,6 +13,11 @@ int col_red[6] = {0,0,0,0,0,0};
 int col_green[6] = {0,0,0,0,0,0};
 task main()
 {
+motor[motorB] = -10;
+while(abs(nMotorEncoder[motorB]) < 135)
+{}
+motor[motorB] = 0;
+wait1Msec(100000);
 	/*
 nMotorEncoder[motorD] = 0;
 motor[motorD] = 10;
