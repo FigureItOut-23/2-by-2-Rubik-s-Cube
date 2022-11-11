@@ -48,14 +48,13 @@ void rotate(int angle)
 void flip()
 {
 //Flip cube
-motor[motorA] = -10;
+motor[motorA] = -15;
 nMotorEncoder[motorA] = 0;
-while(abs(nMotorEncoder[motorA]) < 90)
+while(abs(nMotorEncoder[motorA]) < 95)
 {}
 motor[motorA] = 0;
 motor[motorA] = 10;
-while(abs(nMotorEncoder[motorA]) > 0)
-{}
+wait1Msec(1500);
 motor[motorA] = 0;
 
 //Whack Cube
@@ -319,20 +318,19 @@ int SumWhite(int* col_blue, int* col_red, int* col_green)
 	ave /= CORNERS_ON_FACE;
 	return(round(ave));
 }
-
+int all_col_red[6] = {0,0,0,0,0,0};
+int all_col_green[6] = {0,0,0,0,0,0};
+int all_col_blue[6] = {0,0,0,0,0,0};
 void CalibrateColourSensor(int* colour_boundaries)
 {
-	int all_col_red[6] = {0,0,0,0,0,0};
-	int all_col_green[6] = {0,0,0,0,0,0};
-	int all_col_blue[6] = {0,0,0,0,0,0};
-	//Mean of white value from green and white faces
-	int orange_white_boundary = -5;
+	//White value yellow face
+	int white_yellow_boundary = -5;
 	//Blue value of orange face
-	int orange_boundary = -5;
+	int yellow_boundary = -5;
 	//Red value of red face
 	int red_boundary = -5;
 	//White value of yellow face
-	int yellow_boundary = -5;
+	int orange_boundary = -5;
 	//White value of green face
 	int green_boundary = -5;
 	//If none of these then its blue
@@ -362,12 +360,12 @@ void CalibrateColourSensor(int* colour_boundaries)
 		//For white face
 		if(face == 2)
 		{
-			orange_white_boundary += (col_red + col_green + col_blue);
+			white_yellow_boundary += (col_red + col_green + col_blue);
 		}
 		//For orange face
 		else if(face == 5)
 		{
-			orange_boundary += col_blue;
+			orange_boundary += (col_red + col_green + col_blue);
 		}
 		//for red face
 		else if(face == 4)
@@ -426,30 +424,47 @@ void CalibrateColourSensor(int* colour_boundaries)
 			rotate(CW);
 		}
 	}
-	colour_boundaries[0] = orange_white_boundary;
-	colour_boundaries[1] = orange_boundary;
+	colour_boundaries[0] = white_yellow_boundary;
+	colour_boundaries[1] = yellow_boundary;
 	colour_boundaries[2] = red_boundary;
-	colour_boundaries[3] = yellow_boundary;
+	colour_boundaries[3] = orange_boundary;
 	colour_boundaries[4] = green_boundary;
 }
-
+int cube_red[6][4];
+int cube_green[6][4];
+int cube_blue[6][4];
 void ScanCube(int* full_cube, int* col_bounds)
 {
 	for(int face = 0; face < 6; face++)
 	{
-		int highest_RGB[3] = {0,0,0};
 		for(int count = 0; count < 4; count++)
 		{
 			int col_blue, col_red, col_green = 0;
+			motor[motorB] = -20;
+			wait1Msec(1000);
+			motor[motorB] = 0;
+			motor[motorC] = -10;
+			wait1Msec(500);
+			motor[motorC] = 0;
+			wait1Msec(100);
 			getColorRGB(S1, col_red, col_green,col_blue);
+			cube_red[face][count] = col_red;
+			cube_green[face][count] = col_green;
+			cube_blue[face][count] = col_blue;
 			int white = (col_red+col_green+col_blue);
 			wait1Msec(100);
+			motor[motorC] = 10;
+			wait1Msec(500);
+			motor[motorC] = 0;
+			motor[motorB] = 20;
+			wait1Msec(1000);
+			motor[motorB] = 0;
 			if (white > col_bounds[0])
 			{
 				if(white > col_bounds[1])
 				{
-					//Orange
-					full_cube[(face * CORNERS_ON_FACE) + count] = 5;
+					//Yellow
+					full_cube[(face * CORNERS_ON_FACE) + count] = 0;
 				}
 				else
 				{
@@ -459,8 +474,8 @@ void ScanCube(int* full_cube, int* col_bounds)
 			}
 			else if(white > col_bounds[3])
 			{
-				//Yellow
-				full_cube[(face * CORNERS_ON_FACE) + count] = 0;
+				//Orange
+				full_cube[(face * CORNERS_ON_FACE) + count] = 5;
 			}
 			else if(col_red > col_bounds[2])
 			{
@@ -487,9 +502,6 @@ void ScanCube(int* full_cube, int* col_bounds)
 			wait1Msec(500);
 			motor[motorC] = 0;
 			flip();
-			motor[motorC] = -10;
-			wait1Msec(500);
-			motor[motorC] = 0;
 		}
 		else if(face == 3)
 		{
@@ -498,9 +510,6 @@ void ScanCube(int* full_cube, int* col_bounds)
 			wait1Msec(500);
 			motor[motorC] = 0;
 			flip();
-			motor[motorC] = -10;
-			wait1Msec(500);
-			motor[motorC] = 0;
 		}
 		else if(face==4){
 			motor[motorC] = 10;
@@ -508,9 +517,6 @@ void ScanCube(int* full_cube, int* col_bounds)
 			motor[motorC] = 0;
 			flip();
 			flip();
-			motor[motorC] = -10;
-			wait1Msec(500);
-			motor[motorC] = 0;
 		}
 		else{
 			//return to original spot
@@ -534,15 +540,12 @@ task main()
 	nMotorEncoder[motorD] = 0;
 	//startTask(playMusic);
 	//wait1Msec(10000);
-	playSound(soundException);
+	//playSound(soundException);
 	//startTask(playMusic);
 	CalibrateColourSensor(colour_boundaries);
 
 	wait1Msec(10000);
-	playSound(soundBeepBeep);
-	motor[motorC] = -10;
-	wait1Msec(500);
-	motor[motorC] = 0;
+	//playSound(soundBeepBeep);
 	ScanCube(cube_main, colour_boundaries);
 
 	/*
