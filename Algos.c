@@ -2,10 +2,12 @@
 //White Face is solved and on top
 const int DEGREES_TURN = 90;
 const int TURN_POW = 12;
-const int CCW = 87;
-const int CW = -87;
-const int WACKER_OFFSET = 20;
+const int CCW = 90;
+const int CW = -90;
+const int WACKER_OFFSET = 15;
+const int CORNERS_ON_FACE = 4;
 int cur_angle = 0;
+
 /*
 void rotate(int direction)
 {
@@ -26,10 +28,10 @@ void rotate(int direction)
     }
 }
 */
-void rotate(int direction)
+void rotate(int angle)
 {
-	cur_angle += direction;
-	motor[motorD] = TURN_POW*(direction/abs(direction));
+	cur_angle += angle;
+	motor[motorD] = TURN_POW*(angle/abs(angle));
 	if(getMotorEncoder(motorD) < cur_angle)
 	{
 		while(getMotorEncoder(motorD) < cur_angle)
@@ -173,6 +175,11 @@ void B(int direction)
 	}
 }
 
+struct cube_struct
+{
+	int cube_faces[6][4];
+};
+
 //Front Face Rotation
 void F(int direction)
 {
@@ -247,39 +254,308 @@ void alg3()
 
 task playMusic()
 {
-	while(
-	for(int count = 0; count < 8; count++){
+	int time = 300;
+	while(1==1)
+	{
+	for(int count = 0; count < 3; count++){
 	playTone(523, 5);
 	playTone(659, 5);
 	playTone(880, 5);
-	wait1Msec(500);
+	wait1Msec(time);
 }
 	for(int count = 0; count < 3; count++){
 	playTone(494, 5);
 	playTone(659, 5);
 	playTone(880, 5);
-	wait1Msec(500);
+	wait1Msec(time);
 }
 	for(int count = 0; count < 5; count++){
 	playTone(494, 5);
 	playTone(659, 5);
 	playTone(784, 5);
-	wait1Msec(500);
+	wait1Msec(time);
 }
-	for(int count = 0; count < 8; count++){
+	for(int count = 0; count < 3; count++){
 	playTone(523, 5);
 	playTone(659, 5);
 	playTone(880, 5);
-	wait1Msec(500);
+	wait1Msec(time);
+}
+time -= 20;
+	if(time < 150)
+	{
+		break;
+	}
+}
 }
 
+int SumBlue(int* col_blue)
+{
+	float ave = 0.0;
+	for(int count = 0; count < CORNERS_ON_FACE; count++)
+	{
+		ave += col_blue[count];
+	}
+	ave /= CORNERS_ON_FACE;
+	return(round(ave));
+}
+int SumRed(int* col_red)
+{
+	float ave = 0.0;
+	for(int count = 0; count < CORNERS_ON_FACE; count++)
+	{
+		ave += col_red[count];
+	}
+	ave /= CORNERS_ON_FACE;
+	return(round(ave));
+}
+int SumWhite(int* col_blue, int* col_red, int* col_green)
+{
+	float ave = 0.0;
+	for(int count = 0; count < CORNERS_ON_FACE; count++)
+	{
+		ave += (col_red[count] + col_green[count] + col_blue[count]);
+	}
+	ave /= CORNERS_ON_FACE;
+	return(round(ave));
 }
 
+void CalibrateColourSensor(int* colour_boundaries)
+{
+	int all_col_red[6] = {0,0,0,0,0,0};
+	int all_col_green[6] = {0,0,0,0,0,0};
+	int all_col_blue[6] = {0,0,0,0,0,0};
+	//Mean of white value from green and white faces
+	int orange_white_boundary = -5;
+	//Blue value of orange face
+	int orange_boundary = -5;
+	//Red value of red face
+	int red_boundary = -5;
+	//White value of yellow face
+	int yellow_boundary = -5;
+	//White value of green face
+	int green_boundary = -5;
+	//If none of these then its blue
+
+	for(int face = 0; face < 6; face++)
+	{
+		int col_blue, col_red, col_green = 0;
+
+		cur_angle += 360;
+		int highest_RGB[3] = {0,0,0};
+		motor[motorD] = TURN_POW/2;
+		while(getMotorEncoder(motorD) < cur_angle)
+		{
+			getColorRGB(S1, col_red, col_green,col_blue);
+			if(col_red > highest_RGB[0])
+				highest_RGB[0] = col_red;
+			if(col_green > highest_RGB[1])
+				highest_RGB[1] = col_green;
+			if(col_blue > highest_RGB[2])
+				highest_RGB[2] = col_blue;
+		}
+		motor[motorD] = 0;
+		all_col_red[face] = col_red;
+		all_col_green[face] = col_green;
+		all_col_blue[face] = col_blue;
+
+		//For white face
+		if(face == 2)
+		{
+			orange_white_boundary += (col_red + col_green + col_blue);
+		}
+		//For orange face
+		else if(face == 5)
+		{
+			orange_boundary += col_blue;
+		}
+		//for red face
+		else if(face == 4)
+		{
+			red_boundary += col_red;
+		}
+		//for yellow face
+		else if(face == 0)
+		{
+			yellow_boundary += (col_red + col_green + col_blue);
+		}
+		//for green face
+		else if(face == 1)
+		{
+			green_boundary += (col_red + col_green + col_blue);
+		}
+		//Orienting Cube
+		if(face < 3)
+		{
+			motor[motorC] = 10;
+			wait1Msec(500);
+			motor[motorC] = 0;
+			flip();
+			motor[motorC] = -10;
+			wait1Msec(500);
+			motor[motorC] = 0;
+		}
+		else if(face == 3)
+		{
+			rotate(CCW);
+			motor[motorC] = 10;
+			wait1Msec(500);
+			motor[motorC] = 0;
+			flip();
+			motor[motorC] = -10;
+			wait1Msec(500);
+			motor[motorC] = 0;
+		}
+		else if(face==4){
+			motor[motorC] = 10;
+			wait1Msec(500);
+			motor[motorC] = 0;
+			flip();
+			flip();
+			motor[motorC] = -10;
+			wait1Msec(500);
+			motor[motorC] = 0;
+		}
+		else{
+			//return to original spot
+			rotate(CW);
+			motor[motorC] = 10;
+			wait1Msec(500);
+			motor[motorC] = 0;
+			flip();
+			rotate(CW);
+		}
+	}
+	colour_boundaries[0] = orange_white_boundary;
+	colour_boundaries[1] = orange_boundary;
+	colour_boundaries[2] = red_boundary;
+	colour_boundaries[3] = yellow_boundary;
+	colour_boundaries[4] = green_boundary;
+}
+
+void ScanCube(int* full_cube, int* col_bounds)
+{
+	for(int face = 0; face < 6; face++)
+	{
+		int highest_RGB[3] = {0,0,0};
+		for(int count = 0; count < 4; count++)
+		{
+			int col_blue, col_red, col_green = 0;
+			getColorRGB(S1, col_red, col_green,col_blue);
+			int white = (col_red+col_green+col_blue);
+			wait1Msec(100);
+			if (white > col_bounds[0])
+			{
+				if(white > col_bounds[1])
+				{
+					//Orange
+					full_cube[(face * CORNERS_ON_FACE) + count] = 5;
+				}
+				else
+				{
+					//White
+					full_cube[(face * CORNERS_ON_FACE) + count] = 2;
+				}
+			}
+			else if(white > col_bounds[3])
+			{
+				//Yellow
+				full_cube[(face * CORNERS_ON_FACE) + count] = 0;
+			}
+			else if(col_red > col_bounds[2])
+			{
+				//Red
+				full_cube[(face * CORNERS_ON_FACE) + count] = 4;
+			}
+			else if(white > col_bounds[4])
+			{
+				//Green
+				full_cube[(face * CORNERS_ON_FACE) + count] = 1;
+			}
+			else
+			{
+				//Blue
+				full_cube[(face * CORNERS_ON_FACE) + count] = 3;
+			}
+			rotate(90);
+		}
+
+		//Orienting Cube
+		if(face < 3)
+		{
+			motor[motorC] = 10;
+			wait1Msec(500);
+			motor[motorC] = 0;
+			flip();
+			motor[motorC] = -10;
+			wait1Msec(500);
+			motor[motorC] = 0;
+		}
+		else if(face == 3)
+		{
+			rotate(CCW);
+			motor[motorC] = 10;
+			wait1Msec(500);
+			motor[motorC] = 0;
+			flip();
+			motor[motorC] = -10;
+			wait1Msec(500);
+			motor[motorC] = 0;
+		}
+		else if(face==4){
+			motor[motorC] = 10;
+			wait1Msec(500);
+			motor[motorC] = 0;
+			flip();
+			flip();
+			motor[motorC] = -10;
+			wait1Msec(500);
+			motor[motorC] = 0;
+		}
+		else{
+			//return to original spot
+			rotate(CW);
+			motor[motorC] = 10;
+			wait1Msec(500);
+			motor[motorC] = 0;
+			flip();
+			rotate(CW);
+		}
+	}
+}
+
+int colour_boundaries[5] = {0,0,0,0,0};
+int cube_main[6*4];
 task main()
 {
-	startTask(playMusic);
-	wait1Msec(10000000);
+	nMotorEncoder[motorA] = 0;
+	nMotorEncoder[motorB] = 0;
+	nMotorEncoder[motorC] = 0;
+	nMotorEncoder[motorD] = 0;
+	//startTask(playMusic);
+	//wait1Msec(10000);
+	playSound(soundException);
+	//startTask(playMusic);
+	CalibrateColourSensor(colour_boundaries);
+
+	wait1Msec(10000);
+	playSound(soundBeepBeep);
+	motor[motorC] = -10;
+	wait1Msec(500);
+	motor[motorC] = 0;
+	ScanCube(cube_main, colour_boundaries);
+
+	/*
+	for(int count = 0; count < 6; count ++)
+	{
+		for(int count2 = 0; count2 < 4; count2++)
+		{
+			cube_copy[count][count2] = cube_main->cube[count][count2];
+		}
+	}
+	*/
 	//R(CCW);
 	//F(CCW);
-	//alg2();
+	//alg1();
+	//U(cw);
 }
