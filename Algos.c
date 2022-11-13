@@ -532,12 +532,18 @@ void ScanCube(int* full_cube, int* col_bounds)
 
 int colour_boundaries[5] = {0,0,0,0,0};
 int cube_main[6*4];
+int red, green, blue = 0;
 task main()
 {
 	nMotorEncoder[motorA] = 0;
 	nMotorEncoder[motorB] = 0;
 	nMotorEncoder[motorC] = 0;
 	nMotorEncoder[motorD] = 0;
+	while(1==1)
+	{
+		getColorRGB(S1, red, green, blue);
+		wait1Msec(50);
+	}
 	//startTask(playMusic);
 	//wait1Msec(10000);
 	//playSound(soundException);

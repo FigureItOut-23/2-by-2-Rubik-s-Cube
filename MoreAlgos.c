@@ -1,3 +1,4 @@
+
 	//7 functions
 #include "Algos.c"
 
@@ -93,31 +94,27 @@ void orientFace(int* cube)
 		else if(cube[1]==0)
 		{
 			hold();
-			rotate(ccw);
+			rotate(CCW);
 			returnWhacker();
-			rotate(cw);
+			rotate(CW);
 			alg2();
 		}
 		else if(cube[2]==0)
 		{
 			hold();
-			rotate(ccw);
-			rotate(ccw);
+			rotate(CCW);
+			rotate(CCW);
 			returnWhacker();
-			rotate(cw);
-			rotate(cw);
+			rotate(CW);
+			rotate(CW);
 			alg2();
 		}
 		else
 		{
 			hold();
-			rotate(ccw);
-			rotate(ccw);
-			rotate(ccw);
+			rotate(CW);
 			returnWhacker();
-			rotate(cw);
-			rotate(cw);
-			rotate(cw);
+			rotate(CCW);
 			alg2();
 		}
 	}
@@ -127,23 +124,23 @@ void orientFace(int* cube)
 			if(cube[0]==0)
 		{
 			hold();
-			rotate(ccw);
-			rotate(ccw);
+			rotate(CCW);
+			rotate(CCW);
 			returnWhacker();
-			rotate(cw);
-			rotate(cw);
+			rotate(CW);
+			rotate(CW);
 			alg3();
 		}
 		else if(cube[1]==0)
 		{
 			hold();
-			rotate(ccw);
-			rotate(ccw);
-			rotate(ccw);
+			rotate(CCW);
+			rotate(CCW);
+			rotate(CCW);
 			returnWhacker();
-			rotate(cw);
-			rotate(cw);
-			rotate(cw);
+			rotate(CW);
+			rotate(CW);
+			rotate(CW);
 			alg3();
 		}
 		else if(cube[2]==0)
@@ -153,9 +150,9 @@ void orientFace(int* cube)
 		else
 		{
 			hold();
-			rotate(ccw);
+			rotate(CCW);
 			returnWhacker();
-			rotate(cw);
+			rotate(CW);
 			alg3();
 		}
 	}
@@ -164,9 +161,9 @@ void orientFace(int* cube)
 			if(cube[0]==5)//ASSUMING ORANGE IS 5
 		{
 			hold();
-			rotate(cw);
+			rotate(CW);
 			returnWhacker();
-			rotate(ccw);
+			rotate(CCW);
 			alg2();
 			alg2();
 		}
@@ -177,21 +174,21 @@ void orientFace(int* cube)
 		}
 		else if(cube[2]==5)
 		{
-		   	hold();
-		   	rotate(ccw);
+		  hold();
+		  rotate(CCW);
 			returnWhacker();
-			rotate(cw);
+			rotate(CW);
 			alg2();
 			alg2();
 		}
 		else
 		{
 			hold();
-			rotate(ccw);
-			rotate(ccw);
+			rotate(CCW);
+			rotate(CCW);
 			returnWhacker();
-			rotate(cw);
-			rotate(cw);
+			rotate(CW);
+			rotate(CW);
 			alg2();
 			alg2();
 		}
@@ -201,40 +198,40 @@ void orientFace(int* cube)
 		if(cube[0]==1)//Assuming 2 is green
 		{
 			alg2();
-			U(ccw);
+			U(CCW);
 			alg2();
 
 		}
 		else if(cube[1]==1)
 		{
 			hold();
-		   	rotate(cw);
+		   	rotate(CW);
 			returnWhacker();
-			rotate(ccw);
+			rotate(CCW);
 			alg2();
-			U(ccw);
+			U(CCW);
 			alg2();
 		}
 		else if(cube[2]==1)
 		{
 			hold();
-		   	rotate(ccw);
-		   	rotate(ccw);
+		   	rotate(CCW);
+		   	rotate(CCW);
 			returnWhacker();
-			rotate(cw);
-			rotate(cw);
+			rotate(CW);
+			rotate(CW);
 			alg2();
-			U(ccw);
+			U(CCW);
 			alg2();
 		}
 		else
 		{
 			hold();
-		   	rotate(ccw);
+		   	rotate(CCW);
 			returnWhacker();
-			rotate(cw);
+			rotate(CW);
 			alg2();
-			U(ccw);
+			U(CCW);
 			alg2();
 		}
 	}
@@ -243,43 +240,43 @@ void orientFace(int* cube)
 		if(cube[21]==5)//Assuming orange is 4
 		{
 			alg2();
-			U();
-			U();// Up 2 cw
+			U(CW);
+			U(CW);// Up 2 CW
 			alg3();
 		}
 		else if(cube[5]==5)
 		{
 			hold();
-			rotate(cw);
+			rotate(CW);
 			returnWhacker();
-			rotate(ccw);
+			rotate(CCW);
 			alg2();
-			U();
-			U();// Up 2 cw
+			U(CW);
+			U(CW);// Up 2 CW
 			alg3();
 		}
 		else if(cube[13]==5)
 		{
 			hold();
-			rotate(ccw);
+			rotate(CCW);
 			returnWhacker();
-			rotate(cw);
+			rotate(CW);
 			alg2();
-			U();
-			U();// Up 2 cw
+			U(CW);
+			U(CW);// Up 2 CW
 			alg3();
 		}
 		else
 		{
 			hold();
-			rotate(ccw);
-			rotate(ccw);
+			rotate(CCW);
+			rotate(CCW);
 			returnWhacker();
-			rotate(cw);
-			rotate(cw);
+			rotate(CW);
+			rotate(CW);
 			alg2();
-			U(cw);
-			U(cw);// Up 2 cw
+			U(CW);
+			U(CW);// Up 2 CW
 			alg3();
 
 		}
@@ -289,39 +286,39 @@ void orientFace(int* cube)
 			if(cube[1]==1) //ASSUMING 3 IS GREEN
 			{
 				alg2();
-				U(cw)
+				U(CW)
 				alg3();
 			}
 			else if(cube[2]==1)
 			{
 				hold();
-				rotate(ccw);
+				rotate(CCW);
 				returnWhacker();
-				rotate(cw);
+				rotate(CW);
 				alg2();
-				U(cw)
+				U(CW)
 				alg3();
 			}
 			else if(cube[3]==1)
 			{
 				hold();
-				rotate(ccw);
-				rotate(ccw);
+				rotate(CCW);
+				rotate(CCW);
 				returnWhacker();
-				rotate(cw);
-				rotate(cw);
+				rotate(CW);
+				rotate(CW);
 				alg2();
-				U(cw)
+				U(CW)
 				alg3();
 			}
 			else
 			{
 				hold();
-				rotate(cw);
+				rotate(CW);
 				returnWhacker();
-				rotate(ccw);
+				rotate(CCW);
 				alg2();
-				U(cw)
+				U(CW)
 				alg3();
 			}
 		}
@@ -331,39 +328,39 @@ void orientFace(int* cube)
 			if(cube[0]==5)
 			{
 				alg2();
-				U(ccw);
+				U(CCW);
 				alg3();
 			}
 			else if(cube[1]==5)
 			{
 				hold();
-				rotate(ccw);
+				rotate(CCW);
 				returnWhacker();
-				rotate(cw);
+				rotate(CW);
 				alg2();
-				U(ccw);
+				U(CCW);
 				alg3();
 			}
 			else if(cube[2]==5)
 			{
 				hold();
-				rotate(ccw);
-				rotate(ccw);
+				rotate(CCW);
+				rotate(CCW);
 				returnWhacker();
-				rotate(cw);
-				rotate(cw);
+				rotate(CW);
+				rotate(CW);
 				alg2();
-				U(ccw);
+				U(CCW);
 				alg3();
 			}
 			else
 			{
 				hold();
-				rotate(cw);
+				rotate(CW);
 				returnWhacker();
-				rotate(ccw);
+				rotate(CCW);
 				alg2();
-				U(ccw);
+				U(CCW);
 				alg3();
 			}
 		}
@@ -400,10 +397,5 @@ cube[23]=5;
 
 int num = findCase(cube);
 //printf("%d", num);
-
+return 1;
 }
-
-
-
-
-
