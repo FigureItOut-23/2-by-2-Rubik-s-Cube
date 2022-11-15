@@ -444,20 +444,13 @@ void solvingWhite(int *cube)
 			indexFace = c;
 		}
 	}
-<<<<<<< HEAD
-	
-  
-=======
-
->>>>>>> 35d1f9697749b1c9aa91ac7d54fa345e199c3418
 	//THEREFORE FACE [c] has the most white pieces
 	printf( "Face with most white pieces is %d", indexFace);
 	int tempArray[4] = {9999, 9999, 9999, 9999};
 	//Face at c is bottom
 	if(indexFace == 0) //if face with most white is the top
 	{
-		//Green and blue switch
-<<<<<<< HEAD
+    //Green and blue switch
 		/*
     8 <--> 0
     9 <--> 1
