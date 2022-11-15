@@ -1,49 +1,58 @@
-#include "FindCases.h"
+#include "AlgorithmsAndCaseFinder.c";
+#include "ScanningCube.c"
+
+task EmergencyStop()
+{
+	while(SensorValue[S3] < 10)
+	{
+		wait1Msec(500);
+	}
+	stopAllTasks();
+}
 
 task playMusic()
 {
 	int time = 300;
 	while(1==1)
 	{
-	for(int count = 0; count < 3; count++){
-	playTone(523, 5);
-	playTone(659, 5);
-	playTone(880, 5);
-	wait1Msec(time);
-}
-	for(int count = 0; count < 3; count++){
-	playTone(494, 5);
-	playTone(659, 5);
-	playTone(880, 5);
-	wait1Msec(time);
-}
-	for(int count = 0; count < 5; count++){
-	playTone(494, 5);
-	playTone(659, 5);
-	playTone(784, 5);
-	wait1Msec(time);
-}
-	for(int count = 0; count < 3; count++){
-	playTone(523, 5);
-	playTone(659, 5);
-	playTone(880, 5);
-	wait1Msec(time);
-}
-time -= 20;
-	if(time < 200)
-	{
-		break;
+		for(int count = 0; count < 3; count++){
+			playTone(523, 5);
+			playTone(659, 5);
+			playTone(880, 5);
+			wait1Msec(time);
+		}
+		for(int count = 0; count < 3; count++){
+			playTone(494, 5);
+			playTone(659, 5);
+			playTone(880, 5);
+			wait1Msec(time);
+		}
+		for(int count = 0; count < 5; count++){
+			playTone(494, 5);
+			playTone(659, 5);
+			playTone(784, 5);
+			wait1Msec(time);
+		}
+		for(int count = 0; count < 3; count++){
+			playTone(523, 5);
+			playTone(659, 5);
+			playTone(880, 5);
+			wait1Msec(time);
+		}
+		time -= 20;
+		if(time < 200)
+		{
+			break;
+		}
 	}
 }
-}
-
-
 
 int cube[6*4];
-int bro;
+int cubeCase;
 task main()
 {
-cube[0]=3;    //
+
+	cube[0]=3;    //
 cube[1]=0;    //
 cube[2]=1;    //
 cube[3]=0;    //
@@ -82,10 +91,13 @@ cube[23]=0;    //
 	int colour_boundaries_green[6] = {0,0,0,0,0,0};
 	int colour_boundaries_blue[6] = {0,0,0,0,0,0};
 
-	/*
+
 	while(SensorValue[S3] > 7)
 	{}
 	wait1Msec(5000);
+	motor[motorC] = -SENSOR_POWER/2;
+	wait1Msec(500);
+	motor[motorC] = 0;
 	//startTask(EmergencyStop);
 	CalibrateColourSensor(colour_boundaries_red, colour_boundaries_green, colour_boundaries_blue);
 
@@ -101,9 +113,10 @@ cube[23]=0;    //
 	motor[motorC] = 0;
 	wait1Msec(500);
 	playSound(soundBeepBeep);
-	*/
-	//ScanCube(cube, colour_boundaries_red, colour_boundaries_green, colour_boundaries_blue);
-	bro = findCase(cube);
+
+	ScanCube(cube, colour_boundaries_red, colour_boundaries_green, colour_boundaries_blue);
+	cubeCase = findCase(cube);
 	findCase(cube);
 	orientFace(cube);
+	playSound(soundUpwardTones);
 }

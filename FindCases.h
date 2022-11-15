@@ -1,36 +1,14 @@
-//Solve First Layer
-//White Face is solved and on top
-const int DEGREES_TURN = 90;
 const int TURN_POW = 12;
 const int CCW = 90;
 const int CW = -90;
-const int WACKER_OFFSET = 15;
+const int WACKER_OFFSET = 6;
 const int CORNERS_ON_FACE = 4;
 int cur_angle = 0;
 int SENSOR_POWER = 30;
 
 
 
-/*
-void rotate(int direction)
-{
 
-  nMotorEncoder[motorD] = 0;
-
-  if (direction == CCW){
-    motor[motorD] = TURN_POW;
-    while(getMotorEncoder(motorD) < DEGREES_TURN)
-      { }
-    motor[motorD] = 0;
-  }
-  else if(direction == CW){
-    motor[motorD] = -TURN_POW;
-    while(getMotorEncoder(motorD) > -DEGREES_TURN)
-      { }
-    motor[motorD] = 0;
-    }
-}
-*/
 void rotate(int angle)
 {
 	/*
@@ -413,42 +391,6 @@ void alg3(int* cube)
 
 }
 
-task playMusic()
-{
-	int time = 300;
-	while(1==1)
-	{
-	for(int count = 0; count < 3; count++){
-	playTone(523, 5);
-	playTone(659, 5);
-	playTone(880, 5);
-	wait1Msec(time);
-}
-	for(int count = 0; count < 3; count++){
-	playTone(494, 5);
-	playTone(659, 5);
-	playTone(880, 5);
-	wait1Msec(time);
-}
-	for(int count = 0; count < 5; count++){
-	playTone(494, 5);
-	playTone(659, 5);
-	playTone(784, 5);
-	wait1Msec(time);
-}
-	for(int count = 0; count < 3; count++){
-	playTone(523, 5);
-	playTone(659, 5);
-	playTone(880, 5);
-	wait1Msec(time);
-}
-time -= 20;
-	if(time < 200)
-	{
-		break;
-	}
-}
-}
 void CalibrateColourSensor(int* colour_boundaries_red, int* colour_boundaries_green, int* colour_boundaries_blue)
 {
 	for(int face = 0; face < 6; face++)
