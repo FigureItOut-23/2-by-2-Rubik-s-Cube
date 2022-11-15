@@ -200,7 +200,6 @@ void orientFace(int* cube)
 			alg2();
 			U(CCW);
 			alg2();
-
 		}
 		else if(cube[1]==1)
 		{
@@ -370,7 +369,7 @@ void orientFace(int* cube)
 void solvingWhite(int *cube)
 {
 
-	
+
 //FACE 1: YELLOW 0-3  // top
 //FACE 2: GREEN 4-7 // left side
 //FACE 3: WHITE 8-11 // bottom
@@ -381,8 +380,8 @@ void solvingWhite(int *cube)
 	int whiteAccumulator[6] = {0};
 	//let colour white = 7;
 	int colourWhite = 7;
-	
-	for (int j = 0; j < 24; j++) 
+
+	for (int j = 0; j < 24; j++)
 		{
 			if(j<4)
 			{
@@ -391,7 +390,7 @@ void solvingWhite(int *cube)
 				whiteAccumulator[0] ++;
 				}
 			}
-			
+
 			if(j<8 && j >3)
 			{
 				if(cube[j] == colourWhite)
@@ -399,7 +398,7 @@ void solvingWhite(int *cube)
 				whiteAccumulator[1] ++;
 				}
 			}
-			
+
 			if(j<12 && j >7)
 			{
 				if(cube[j] == colourWhite)
@@ -407,7 +406,7 @@ void solvingWhite(int *cube)
 				whiteAccumulator[2] ++;
 				}
 			}
-			
+
 			if(j<16 && j >11)
 			{
 				if(cube[j] == colourWhite)
@@ -415,7 +414,7 @@ void solvingWhite(int *cube)
 				whiteAccumulator[3] ++;
 				}
 			}
-			
+
 			if(j<20 && j > 15)
 			{
 				if(cube[j] == colourWhite)
@@ -423,7 +422,7 @@ void solvingWhite(int *cube)
 				whiteAccumulator[4] ++;
 				}
 			}
-			
+
 			if(j<24 && j >19)
 			{
 				if(cube[j] == colourWhite)
@@ -432,7 +431,7 @@ void solvingWhite(int *cube)
 				}
 			}
 		}
-		
+
 
 	int mostWhite = -9;
 	int indexFace = -1;
@@ -445,7 +444,7 @@ void solvingWhite(int *cube)
 			indexFace = c;
 		}
 	}
-	
+
 	//THEREFORE FACE [c] has the most white pieces
 	printf( "Face with most white pieces is %d", indexFace);
 	int tempArray[4] = {9999, 9999, 9999, 9999};
@@ -459,13 +458,13 @@ void solvingWhite(int *cube)
 			cube[x+4] = cube[x+12];
 			cube[x+12] = tempArray[x];
 		}
-		
+
 	}
 	for (int x = 0; x < 24; x++)
 	{
 		printf( "Cube at index %d", x, " = %d", cube[x]);
 	}
-	
+
 }
 
 int main()
@@ -505,7 +504,7 @@ int num = findCase(cube);
 //FACE 3: WHITE 8-11
 //FACE 4 : BLUE 12-15
 //FACE 5: RED 16-19
-//FACE 6: ORANGE 20-23 
+//FACE 6: ORANGE 20-23
 
 solvingWhite(cube);
 
