@@ -448,14 +448,37 @@ void solvingWhite(int *cube)
 	printf( "Face with most white pieces is %d", indexFace);
 	int tempArray[4] = {9999, 9999, 9999, 9999};
 	//Face at c is bottom
+  tempArray[12] = {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9};
+  
+  indexFace == 0;
 	if(indexFace == 0) //if face with most white is the top
 	{
+    /*
+    tempArray[0] = cube[9];
+    tempArray[1] = cube[10];
+    tempArray[2] = cube[11];
+    tempArray[3] = cube[12];
+    tempArray[5] = cube[13];
+    tempArray[6] = cube[14];
+    cube[9] = cube[3];
+    cube[3] = tempArray[0];
+    cube[10] = cube[0];
+    cube[0] = tempArray[1];
+    cube[11] = cube[1];
+    cube[1] = tempArray[2];
+    cube[12] = cube[4];
+    cube[4] = tempArray[3];
+    cube[13] = cube[5];
+    cube[5] = tempArray[5];
+    cube[14] = cube[6];
+    cube[6] = tempArray[6]];
+    */ 
+    
     //Green and blue switch
 		/*
-    8 <--> 0
-    9 <--> 1
-    10 <--> 2
-    11 <--> 3
+    9 <--> 3
+    10 <--> 0
+    11 <--> 1
     4 <--> 12
     5 <--> 13
     6 <--> 14
@@ -466,19 +489,32 @@ void solvingWhite(int *cube)
     21 <--> 23
     
     */
-=======
-		for (int x = 0; x < 4; x++)
-		{
-			tempArray[x] = cube[x+4]; //tempArray equals temp cube at green face 4-7 on index
-			cube[x+4] = cube[x+12];
-			cube[x+12] = tempArray[x];
-		}
-
->>>>>>> 35d1f9697749b1c9aa91ac7d54fa345e199c3418
 	}
-  else if(indexFace == 1) //if face with most white is the top
-	{
-		//Green and blue switch
+  else if(indexFace == 1) //if face with most white is left
+	{  
+    tempArray[0] = cube[12];
+    tempArray[1] = cube[13];
+    tempArray[2] = cube[14];
+    tempArray[3] = cube[15];
+    for (int j = 8; j < 12; j++)
+    {
+      cube [j+4] = cube [j];
+    }
+    for (int j = 4; j < 8; j++)
+    {
+      cube [j+4] = cube [j];
+    }
+    for (int j = 0; j < 4; j++)
+    {
+      cube [j+4] = cube [j];   
+    }
+    for (int j=0; j < 4; j++)
+    {
+      cube[j] = tempArray[j];
+    }
+    
+    
+    //Green and blue switch
 		/*
     8 --> 12
     9 --> 13
