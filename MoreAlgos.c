@@ -375,8 +375,8 @@ void solvingWhite(int *cube)
 //FACE 2: GREEN 4-7 // left side
 //FACE 3: WHITE 8-11 // bottom
 //FACE 4 : BLUE 12-15 //right side
-//FACE 5: RED 16-19 //front
-//FACE 6: ORANGE 20-23 //back
+//FACE 5: RED 16-19 //back
+//FACE 6: ORANGE 20-23 //front
 	//FINDING FACE WITH MOST WHITE PIECES
 	int whiteAccumulator[6] = {0};
 	//let colour white = 7;
@@ -446,6 +446,7 @@ void solvingWhite(int *cube)
 		}
 	}
 	
+  
 	//THEREFORE FACE [c] has the most white pieces
 	printf( "Face with most white pieces is %d", indexFace);
 	int tempArray[4] = {9999, 9999, 9999, 9999};
@@ -453,14 +454,145 @@ void solvingWhite(int *cube)
 	if(indexFace == 0) //if face with most white is the top
 	{
 		//Green and blue switch
-		for (int x = 0; x < 4; x++)
-		{
-			tempArray[x] = cube[x+4]; //tempArray equals temp cube at green face 4-7 on index
-			cube[x+4] = cube[x+12];
-			cube[x+12] = tempArray[x];
-		}
-		
+		/*
+    8 <--> 0
+    9 <--> 1
+    10 <--> 2
+    11 <--> 3
+    4 <--> 12
+    5 <--> 13
+    6 <--> 14
+    7 <--> 15
+    16 <--> 18
+    17 <--> 19
+    20 <--> 22
+    21 <--> 23
+    
+    */
 	}
+  else if(indexFace == 1) //if face with most white is the top
+	{
+		//Green and blue switch
+		/*
+    8 --> 12
+    9 --> 13
+    10 --> 14
+    11 --> 15
+    4 --> 8
+    5 --> 9
+    6 --> 10
+    7 --> 11
+    12 --> 0
+    13 --> 1
+    14 --> 2
+    15 --> 3
+    0 --> 4
+    1 --> 5
+    2 --> 6
+    3 --> 7
+    23 --> 20
+    20 --> 21
+    21 --> 22
+    22 --> 23
+    17 --> 16
+    16 --> 19
+    19 --> 18
+    18 --> 17    
+    */
+	}
+  else if(indexFace == 2)
+  {
+    // do nothing
+  }
+  else if (indexFace == 3)
+  {
+    /*
+    8 --> 4
+    9 --> 5
+    10 --> 6
+    11 --> 7
+    13 --> 9
+    12 --> 8
+    14 --> 10
+    15 --> 11
+    0 --> 12
+    1 --> 13
+    2 --> 14
+    3 --> 15
+    4 --> 0
+    5 --> 1
+    6 --> 2
+    7 --> 3
+    21 --> 20
+    22 --> 21
+    23 --> 22
+    20 --> 23
+    19 --> 16
+    16 --> 17
+    17 --> 18
+    18 --> 19
+    */
+  }
+  else if (indexFace == 4)
+  {
+    /*
+    8 --> 18
+    9 --> 19
+    10 --> 16
+    11 --> 17
+    20 --> 8
+    21 --> 9
+    22 --> 10
+    23 --> 11
+    2 --> 20
+    3 --> 21
+    0 --> 22
+    1 --> 23
+    17 --> 1
+    18 --> 2
+    16 --> 0
+    19 --> 3
+    7 --> 6
+    6 --> 5
+    5 --> 4
+    4 --> 7
+    14 --> 15
+    15 --> 12
+    12 --> 13
+    13 --> 14
+    */
+  }
+  else 
+  {
+    /*
+    8 --> 20
+    9 --> 21
+    10 --> 22
+    11 --> 23
+    21 --> 3
+    20 --> 2
+    22 --> 0
+    23 --> 1
+    2 --> 18
+    3 --> 19
+    0 --> 16
+    1 --> 17
+    18 --> 8
+    19 --> 9
+    16 --> 10
+    17 --> 11
+    4 --> 5
+    5 --> 6
+    6 --> 7
+    7 --> 4
+    13 --> 12
+    14 --> 13
+    15 --> 14
+    12 --> 15
+    
+    */
+  }
+  
 	for (int x = 0; x < 24; x++)
 	{
 		printf( "Cube at index %d", x, " = %d", cube[x]);
