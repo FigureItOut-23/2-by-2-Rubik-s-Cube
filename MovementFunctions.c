@@ -2,7 +2,7 @@
 
 void rotate(int angle)
 {
-
+/*
 	cur_angle += angle;
 	motor[motorD] = TURN_POW*(angle/abs(angle));
 	if(getMotorEncoder(motorD) < cur_angle)
@@ -15,13 +15,13 @@ void rotate(int angle)
 		{}
 	}
 	motor[motorD] = 0;
-
+*/
 }
 
 
 void flip()
 {
-
+/*
 	//Flip cube
 	motor[motorA] = -15;
 	nMotorEncoder[motorA] = 0;
@@ -39,30 +39,30 @@ void flip()
 	motor[motorB] = 20;
 	wait1Msec(1000);
 	motor[motorB] = 0;
-
+*/
 }
 
 void hold()
 {
-
+/*
 	nMotorEncoder[motorB] = 0;
   motor[motorB] = -10;
 while(abs(nMotorEncoder[motorB]) < 140)
 {}
 motor[motorB] = 0;
-
+*/
 }
 
 void returnWhacker()
 {
-
+/*
 	motor[motorB] = -20;
 	wait1Msec(500);
   motor[motorB] = 0;
   motor[motorB] = 20;
 	wait1Msec(1000);
   motor[motorB] = 0;
-
+*/
 }
 
 

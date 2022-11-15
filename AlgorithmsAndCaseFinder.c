@@ -21,13 +21,6 @@ int findCase(int* cube)
 	 return 0; //do nothing and move on
 	}
 
-			//Case 5
-	else if(cube[0]==0 && cube[2]==0 || cube[1]==0 && cube[3]==0)
-	{
-		return 5;
-	}
-
-
 	else if (yellow_counter==2) //could be case 6,or 7
 	{
 
@@ -60,7 +53,7 @@ int findCase(int* cube)
 	}
 
 
-	else //case 1 or 2
+	else if(yellow_counter==1) //case 1 or 2
 	{
 		if(cube[0]==0 && cube[14]==0 || cube[1]==0 && cube[19]==0 ||
 		   cube[2]==0 && cube[4]==0 || cube[3]==0 && cube[23]==0)
@@ -71,6 +64,12 @@ int findCase(int* cube)
 		{
 			return 2;
 		}
+	}
+
+				//Case 5
+	else
+	{
+		return 5;
 	}
 }
 
@@ -130,30 +129,18 @@ else if(findCase(cube)==2)
 
 else if(findCase(cube)==3)
 {
-		if(cube[0]==5)//ASSUMING ORANGE IS 5
+		if(cube[23]!=0)//ASSUMING ORANGE IS 5
 	{
 		U(CCW, cube);
 		alg2(cube);
 		alg2(cube);
 	}
-	else if(cube[1]==5)
+		else
 	{
 		alg2(cube);
 		alg2(cube);
 	}
-	else if(cube[2]==5)
-	{
-		U(CW, cube);
-		alg2(cube);
-		alg2(cube);
-	}
-	else
-	{
-		U(CW, cube);
-		U(CW, cube);
-		alg2(cube);
-		alg2(cube);
-	}
+
 }
 
 else if(findCase(cube)==4)
@@ -258,21 +245,21 @@ else if(findCase(cube)==6)
 
 	else //Case 7
 	{
-		if(cube[0]==5)
+		if(cube[0]!=0 && cube[1]==0)
 		{
 			alg2(cube);
 			U(CCW, cube);
 			alg3(cube);
 		}
-		else if(cube[1]==5)
+		else if(cube[0]==0 && cube[1]==0)
 		{
 
-			U(CW, cube);
+			U(CCW, cube);
 			alg2(cube);
 			U(CCW, cube);
 			alg3(cube);
 		}
-		else if(cube[2]==5)
+		else if(cube[0]==0 && cube[1]!=0)
 		{
 			U(CW, cube);
 			U(CW, cube);
@@ -282,7 +269,7 @@ else if(findCase(cube)==6)
 		}
 		else
 		{
-			U(CCW, cube);
+			U(CW, cube);
 			alg2(cube);
 			U(CCW, cube);
 			alg3(cube);
