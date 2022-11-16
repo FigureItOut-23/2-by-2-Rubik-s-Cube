@@ -453,7 +453,7 @@ void solvingWhite(int *cube)
   indexFace == 0;
 	if(indexFace == 0) //if face with most white is the top
 	{
-    /*
+    
     tempArray[0] = cube[9];
     tempArray[1] = cube[10];
     tempArray[2] = cube[11];
@@ -471,8 +471,7 @@ void solvingWhite(int *cube)
     cube[13] = cube[5];
     cube[5] = tempArray[5];
     cube[14] = cube[6];
-    cube[6] = tempArray[6]];
-    */ 
+    cube[6] = tempArray[6];
     
     //Green and blue switch
 		/*
