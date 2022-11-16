@@ -446,9 +446,8 @@ void solvingWhite(int *cube)
 	}
 	//THEREFORE FACE [c] has the most white pieces
 	printf( "Face with most white pieces is %d", indexFace);
-	int tempArray[4] = {9999, 9999, 9999, 9999};
-	//Face at c is bottom
-  tempArray[12] = {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9};
+  
+  int tempArray[12] = {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9};
   
   indexFace == 0;
 	if(indexFace == 0) //if face with most white is the top
@@ -458,36 +457,39 @@ void solvingWhite(int *cube)
     tempArray[1] = cube[10];
     tempArray[2] = cube[11];
     tempArray[3] = cube[12];
-    tempArray[5] = cube[13];
-    tempArray[6] = cube[14];
+    tempArray[4] = cube[13];
+    tempArray[5] = cube[14];
+    tempArray[6] = cube[15];
+    tempArray[7] = cube[8];
+    tempArray[8] = cube[18];
+    tempArray[9] = cube[19];
+    tempArray[10] = cube[22];
+    tempArray[11] = cube[23];
     cube[9] = cube[3];
-    cube[3] = tempArray[0];
+    cube[3] = tempArray[0]; // 9 <--> 3
     cube[10] = cube[0];
-    cube[0] = tempArray[1];
+    cube[0] = tempArray[1]; // 10 <--> 0
     cube[11] = cube[1];
-    cube[1] = tempArray[2];
+    cube[1] = tempArray[2]; // 11 <--> 1
     cube[12] = cube[4];
-    cube[4] = tempArray[3];
+    cube[4] = tempArray[3]; // 4 <--> 12
     cube[13] = cube[5];
-    cube[5] = tempArray[5];
+    cube[5] = tempArray[4]; // 5 <--> 13
     cube[14] = cube[6];
-    cube[6] = tempArray[6];
+    cube[6] = tempArray[5]; // 6 <--> 14
+    cube[15] = cube[6];
+    cube[7] = tempArray[6]; // 7 <--> 15
+    cube[8] = cube[2];
+    cube[2] = tempArray[7]; // 8 <--> 2
+    cube[18] = cube[16];
+    cube[16] = tempArray[8]; // 16 <--> 18
+    cube[19] = cube[17];
+    cube[17] = tempArray[9]; // 17 <--> 19
+    cube[22] = cube[20];
+    cube[20] = tempArray[10]; // 20 <--> 22
+    cube[23] = cube[21];
+    cube[21] = tempArray[11]; // 21 <--> 23
     
-    //Green and blue switch
-		/*
-    9 <--> 3
-    10 <--> 0
-    11 <--> 1
-    4 <--> 12
-    5 <--> 13
-    6 <--> 14
-    7 <--> 15
-    16 <--> 18
-    17 <--> 19
-    20 <--> 22
-    21 <--> 23
-    
-    */
 	}
   else if(indexFace == 1) //if face with most white is left
 	{  
@@ -547,6 +549,31 @@ void solvingWhite(int *cube)
   }
   else if (indexFace == 3)
   {
+    for (int i = 0; i < 4; i++)
+    {
+      tempArray[j] = cube[j];
+    }
+    for (int j = 0; j < 12 ;j++);
+    {
+      cube[j] = cube[j+4];
+    }
+    for (int k = 12; k < 16; k++)
+    {
+      cube[k] = tempArray[k-12];
+    }
+    
+    tempArray[0] = cube[23];
+    tempArray[1] = cube[18];
+    cube[23] = cube[20];
+    cube[20] = cube[21];
+    cube[21] = cube[22];
+    cube[22] = tempArray[0];
+    cube[18] = cube[17];
+    cube[17] = cube[16];
+    cube[16] = cube[19];
+    cube[19] = tempArray[1];    
+    
+    
     /*
     8 --> 4
     9 --> 5
@@ -576,6 +603,38 @@ void solvingWhite(int *cube)
   }
   else if (indexFace == 4)
   {
+    for (int i = 0; i < 8; i++)
+    {
+      tempArray[i] = cube[i+16]
+    }
+    cube[18] = cube[8];
+    cube[19] = cube[9];
+    cube[16] = cube[10];
+    cube[17] = cube[11];
+    for(int j = 8; j<12; j++)
+    {
+      cube[j] = tempArray[j-4];
+    }
+    cube[20] = cube[2];
+    cube[21] = cube[3];
+    cube[22] = cube[0];
+    cube[21] = cube[1];
+    for (int k =0; k <4; k++)
+    {
+      cube[k] = tempArray[k];
+    }
+    tempArray[8] = cube[6];
+    tempArray[9] = cube[15];
+    cube[6] = cube[7];
+    cube[7] = cube[4]
+    cube[4] = cube[5];
+    cube[5] = tempArray[8];
+    cube[15] = cube[14];
+    cube[14] = cube [13];
+    cube[13] = cube[12];
+    cube[12] = tempArray[9]; 
+
+    
     /*
     8 --> 18
     9 --> 19
@@ -605,19 +664,57 @@ void solvingWhite(int *cube)
   }
   else 
   {
+    for (int i = 0; i < 4; i ++)
+    {
+      tempArray[i] = cube[i+20];
+      
+    }
+    for (int j = 20; j < 24; j++)
+    {
+      cube[j] = cube[j-12];
+    }
+    for (int k = 16; k < 20; k++)
+    {
+      tempArray[k-12] = cube[k]; 
+    }
+    cube[18] = cube[2];
+    cube[19] = cube[3];
+    cube[16] = cube[0];
+    cube[17] = cube[1];
+    cube[0] = tempArray[2];
+    cube[1] = tempArray[3];
+    cube[2] = tempArray[0];
+    cube[3] = tempArray[1];
+    cube[8] = tempArray[6];
+    cube[9] = tempArray[7];
+    cube[10] = tempArray[4];
+    cube[11] = tempArray[5];
+    
+    tempArray[8] = cube[4];
+    cube[4] = cube[7];
+    cube[7] = cube[6];
+    cube[6] = cube[5];
+    cube[5] = tempArray[8];
+    tempArray[9] = cube[15];
+    cube[15] = cube[12];
+    cube[12] = cube[13];
+    cube[13] = cube[14];
+    cube[14] = tempArray[9];
+    
+    
     /*
-    8 --> 20
-    9 --> 21
-    10 --> 22
-    11 --> 23
-    21 --> 3
-    20 --> 2
-    22 --> 0
-    23 --> 1
-    2 --> 18
-    3 --> 19
-    0 --> 16
-    1 --> 17
+    8 --> 20 
+    9 --> 21 
+    10 --> 22 
+    11 --> 23 
+    21 --> 3 
+    20 --> 2 
+    22 --> 0  
+    23 --> 1 
+    2 --> 18 
+    3 --> 19 
+    0 --> 16 
+    1 --> 17 
     18 --> 8
     19 --> 9
     16 --> 10
@@ -630,7 +727,6 @@ void solvingWhite(int *cube)
     14 --> 13
     15 --> 14
     12 --> 15
-    
     */
   }
   
