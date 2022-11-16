@@ -1,4 +1,44 @@
 #include "FindCases.h"
+
+task playMusic()
+{
+	int time = 300;
+	while(1==1)
+	{
+	for(int count = 0; count < 3; count++){
+	playTone(523, 5);
+	playTone(659, 5);
+	playTone(880, 5);
+	wait1Msec(time);
+}
+	for(int count = 0; count < 3; count++){
+	playTone(494, 5);
+	playTone(659, 5);
+	playTone(880, 5);
+	wait1Msec(time);
+}
+	for(int count = 0; count < 5; count++){
+	playTone(494, 5);
+	playTone(659, 5);
+	playTone(784, 5);
+	wait1Msec(time);
+}
+	for(int count = 0; count < 3; count++){
+	playTone(523, 5);
+	playTone(659, 5);
+	playTone(880, 5);
+	wait1Msec(time);
+}
+time -= 20;
+	if(time < 200)
+	{
+		break;
+	}
+}
+}
+
+
+
 int cube[6*4];
 int bro;
 task main()
