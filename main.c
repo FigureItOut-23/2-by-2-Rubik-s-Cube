@@ -53,29 +53,29 @@ task main()
 {
 
 cube[0]=1;    //
-cube[1]=3;    //
-cube[2]=0;    //
-cube[3]=0;    //
-cube[4]=5; //
+cube[1]=0;    //
+cube[2]=3;    //
+cube[3]=5;    //
+cube[4]=4; //
 cube[5]=1;
 cube[6]=1;
-cube[7]=3;    //
+cube[7]=0;    //
 cube[8]=2;
 cube[9]=2;
 cube[10]=2;
 cube[11]=2;
 cube[12]=3;
-cube[13]=5;    //
+cube[13]=0;    //
 cube[14]=1;    //
 cube[15]=3;
 cube[16]=4;
 cube[17]=4;
-cube[18]=0;    //
-cube[19]=0;    //
+cube[18]=3;    //
+cube[19]=4;    //
 cube[20]=5;
 cube[21]=5;
-cube[22]=4;    //
-cube[23]=4;    //
+cube[22]=0;    //
+cube[23]=5;    //
 	SensorType[S1] = sensorEV3_Color;
 	SensorType[S3] = sensorEV3_Ultrasonic;
 	wait1Msec(50);

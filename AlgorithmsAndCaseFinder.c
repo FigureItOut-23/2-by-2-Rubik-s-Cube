@@ -21,12 +21,17 @@ int findCase(int* cube)
 	 return 0; //do nothing and move on
 	}
 
+
+	else if(cube[0]==0 && cube[2]==0 || cube[1]==0 && cube[3]==0)
+	{
+		return 5;
+	}
+
 	else if (yellow_counter==2) //could be case 6,or 7
 	{
 
-
 		if(cube[4]==0 && cube[7]==0 || cube[13]==0 && cube[14]==0 ||
-		   cube[18]==0 && cube[19]==0 || cube[22]==0 && cube[23]==0)
+		 			  cube[18]==0 && cube[19]==0 || cube[22]==0 && cube[23]==0)
 		{
 		   	return 7;
 		}
@@ -53,7 +58,7 @@ int findCase(int* cube)
 	}
 
 
-	else if(yellow_counter==1) //case 1 or 2
+	else //case 1 or 2
 	{
 		if(cube[0]==0 && cube[14]==0 || cube[1]==0 && cube[19]==0 ||
 		   cube[2]==0 && cube[4]==0 || cube[3]==0 && cube[23]==0)
@@ -64,12 +69,6 @@ int findCase(int* cube)
 		{
 			return 2;
 		}
-	}
-
-				//Case 5
-	else
-	{
-		return 5;
 	}
 }
 
@@ -103,6 +102,7 @@ void orientFace(int * cube)
 			alg2(cube);
 		}
 	}
+
 else if(findCase(cube)==2)
 {
 		if(cube[0]==0)
@@ -129,7 +129,7 @@ else if(findCase(cube)==2)
 
 else if(findCase(cube)==3)
 {
-		if(cube[23]!=0)//ASSUMING ORANGE IS 5
+		if(cube[23]!=0)
 	{
 		U(CCW, cube);
 		alg2(cube);
@@ -145,21 +145,21 @@ else if(findCase(cube)==3)
 
 else if(findCase(cube)==4)
 {
-	if(cube[0]==1)//Assuming 1 is green
+	if(cube[4]==0 && cube[7]==0)//Assuming 1 is green
 	{
 		alg2(cube);
 		U(CCW, cube);
 		alg2(cube);
 
 	}
-	else if(cube[1]==1)
+	else if(cube[4]!=0 && cube[7]==0)
 	{
 		U(CCW, cube);
 		alg2(cube);
 		U(CCW, cube);
 		alg2(cube);
 	}
-	else if(cube[2]==1)
+	else if(cube[4]!=0 && cube[7]!=0)
 	{
 		U(CCW, cube);
 		alg2(cube);
@@ -211,22 +211,22 @@ else if(findCase(cube)==5)
 }
 
 
-else if(findCase(cube)==6)
+else if(findCase(cube)==6) //CHECKED
 {
-		if(cube[1]==1) //ASSUMING 3 IS GREEN
+		if(cube[0]!=0 && cube[1]!=0)
 		{
 			alg2(cube);
 			U(CW, cube);
 			alg3(cube);
 		}
-		else if(cube[2]==1)
+		else if(cube[0]==0 && cube[1]!=0)
 		{
 			U(CW, cube);
 			alg2(cube);
 			U(CW, cube);
 			alg3(cube);
 		}
-		else if(cube[3]==1)
+		else if(cube[0]==0 && cube[1]==0)
 		{
 			U(CW, cube);
 			U(CW, cube);
@@ -243,7 +243,7 @@ else if(findCase(cube)==6)
 		}
 	}
 
-	else //Case 7
+	else //Case 7 CHECKED
 	{
 		if(cube[0]!=0 && cube[1]==0)
 		{
