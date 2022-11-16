@@ -131,7 +131,7 @@ void ScanCube(int* full_cube, int* colour_boundaries_red, int* colour_boundaries
 			bool correctColour = true;
 			if(!getButtonPress(buttonEnter)){
 				correctColour = false;
-				playSound(soundBeepBeep);
+				//playSound(soundBeepBeep);
 			}
 			while(getButtonPress(buttonAny)){}
 			if(!correctColour)
@@ -156,7 +156,7 @@ void ScanCube(int* full_cube, int* colour_boundaries_red, int* colour_boundaries
 				}
 			}
 			eraseDisplay();
-			rotate(CCW);
+			rotate(CW);
 		}
 
 		//Orienting Cube

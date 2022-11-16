@@ -5,9 +5,9 @@
 const int TURN_POW = 12;
 const int CCW = 90;
 const int CW = -90;
-const int WACKER_OFFSET = 6;
+const int WACKER_OFFSET = 5;
 const int CORNERS_ON_FACE = 4;
-const int SENSOR_POWER = 30;
+const int SENSOR_POWER = 25;
 
 int cur_angle = 0;
 
