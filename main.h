@@ -8,6 +8,7 @@ const int CW = -90;
 const int WACKER_OFFSET = 5;
 const int CORNERS_ON_FACE = 4;
 const int SENSOR_POWER = 25;
+const int SIDES_CUBE = 6;
 
 int cur_angle = 0;
 

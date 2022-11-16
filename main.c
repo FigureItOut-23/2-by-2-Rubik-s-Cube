@@ -49,6 +49,34 @@ task playMusic()
 	}
 }
 
+void WriteToFile(int* colour_boundaries_red, int* colour_boundaries_green, int* colour_boundaries_blue)
+{
+	long colourBoundariesFile = fileOpenWrite("Colour_Boundaries.txt");
+	for(int face = 0; face < SIDES_CUBE; face++)
+	{
+		fileWriteFloat(colourBoundariesFile, colour_boundaries_red[face]);
+		fileWriteFloat(colourBoundariesFile, colour_boundaries_green[face]);
+		fileWriteFloat(colourBoundariesFile, colour_boundaries_blue[face]);
+	}
+	fileClose(colourBoundariesFile);
+}
+
+void ReadFromFile(int* colour_boundaries_red, int* colour_boundaries_green, int* colour_boundaries_blue)
+{
+	long colourBoundariesFile = fileOpenRead("Colour_Boundaries.txt");
+	for(int face = 0; face < SIDES_CUBE; face++)
+	{
+		float rgb[3] = {0,0,0};
+		fileReadFloat(colourBoundariesFile, &rgb[0]);
+		fileReadFloat(colourBoundariesFile, &rgb[1]);
+		fileReadFloat(colourBoundariesFile, &rgb[2]);
+		colour_boundaries_red[face] = (int)rgb[0];
+		colour_boundaries_green[face] = (int)rgb[1];
+		colour_boundaries_blue[face] = (int)rgb[2];
+	}
+	fileClose(colourBoundariesFile);
+}
+
 int cube[6*4];
 int cubeCase;
 task main()
@@ -77,7 +105,7 @@ cube[20]=5;
 cube[21]=5;
 cube[22]=0;    //
 cube[23]=0;    //
-/*
+
 	SensorType[S1] = sensorEV3_Color;
 	SensorType[S3] = sensorEV3_Ultrasonic;
 	wait1Msec(50);
@@ -94,20 +122,26 @@ cube[23]=0;    //
 	int colour_boundaries_green[6] = {0,0,0,0,0,0};
 	int colour_boundaries_blue[6] = {0,0,0,0,0,0};
 
+	const bool cailbrateSensor = true;
 
-	while(SensorValue[S3] > 7)
-	{}
-	wait1Msec(5000);
-	motor[motorC] = -SENSOR_POWER/2;
-	wait1Msec(500);
-	motor[motorC] = 0;
+	if(calibrateSensor)
+	{
+		while(SensorValue[S3] > 7)
+		{}
+		wait1Msec(5000);
+		motor[motorC] = -SENSOR_POWER/2;
+		wait1Msec(500);
+		motor[motorC] = 0;
+		CalibrateColourSensor(colour_boundaries_red, colour_boundaries_green, colour_boundaries_blue);
+		while(SensorValue[S3] < 7)
+		{}
+		wait1Msec(2000);
+	}
+	else
+	{
+
+	}
 	//startTask(EmergencyStop);
-	CalibrateColourSensor(colour_boundaries_red, colour_boundaries_green, colour_boundaries_blue);
-
-	while(SensorValue[S3] < 7)
-	{}
-
-	wait1Msec(2000);
 
 	while(SensorValue[S3] > 7)
 	{}
@@ -123,10 +157,9 @@ cube[23]=0;    //
 	ScanCube(cube, colour_boundaries_red, colour_boundaries_green, colour_boundaries_blue);
 
 	wait1Msec(2000);
-*/
+
 	cubeCase = findCase(cube);
 	orientFace(cube);
 	FinishCube(cube);
 	//playSound(soundUpwardTones);
-	wait1Msec(10000);
 }
