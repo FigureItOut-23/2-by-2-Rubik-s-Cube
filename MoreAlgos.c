@@ -496,7 +496,7 @@ void solvingWhite(int *cube)
   
   int tempArray[12] = {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9};
   
-  indexFace == 0;
+  indexFace = 0;
 	if(indexFace == 0) //if face with most white is the top
 	{
     
@@ -598,9 +598,9 @@ void solvingWhite(int *cube)
   {
     for (int i = 0; i < 4; i++)
     {
-      tempArray[j] = cube[j];
+      tempArrayij] = cube[i];
     }
-    for (int j = 0; j < 12 ;j++);
+    for (int j = 0; j < 12 ;j++)
     {
       cube[j] = cube[j+4];
     }
@@ -652,7 +652,7 @@ void solvingWhite(int *cube)
   {
     for (int i = 0; i < 8; i++)
     {
-      tempArray[i] = cube[i+16]
+      tempArray[i] = cube[i+16];
     }
     cube[18] = cube[8];
     cube[19] = cube[9];
@@ -673,7 +673,7 @@ void solvingWhite(int *cube)
     tempArray[8] = cube[6];
     tempArray[9] = cube[15];
     cube[6] = cube[7];
-    cube[7] = cube[4]
+    cube[7] = cube[4];
     cube[4] = cube[5];
     cube[5] = tempArray[8];
     cube[15] = cube[14];
@@ -778,9 +778,11 @@ void solvingWhite(int *cube)
   }
   
 	for (int x = 0; x < 24; x++)
-	{
-		printf( "Cube at index %d", x, " = %d", cube[x]);
-	}
+    {
+        printf( "Cube at index %d", x);
+        printf(" = %d", cube[x]);
+        printf("\n");
+    }
 
 
 	while(whiteAccumulator[indexFace] < 4)
@@ -823,6 +825,14 @@ cube[12]=2;
 cube[13]=0;
 cube[14]=1;
 cube[15]=3;
+cube[16]=4;
+cube[17]=4;
+cube[18]=4;
+cube[19]=4;
+cube[20]=5;
+cube[21]=5;
+cube[22]=5;
+cube[23]=5;
 cube[16]=4;
 cube[17]=5;
 cube[18]=3;
