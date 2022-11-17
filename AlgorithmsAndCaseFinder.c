@@ -276,3 +276,4 @@ else if(findCase(cube)==6) //CHECKED
 		}
 	}
 }
+
