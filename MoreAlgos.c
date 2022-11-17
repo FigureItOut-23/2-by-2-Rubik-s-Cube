@@ -703,7 +703,7 @@ void solvingWhite(int *cube)
 		{
 			D(CW, cube); // rotate bottom function //make one
 	 	}
-	 	setUpTop();
+	 	setUpTop(); //gonna loop infinetely as it doesnt take c into account
 		whiteOnTop();
 	}
 	
