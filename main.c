@@ -122,7 +122,7 @@ cube[23]=0;    //
 	int colour_boundaries_green[6] = {0,0,0,0,0,0};
 	int colour_boundaries_blue[6] = {0,0,0,0,0,0};
 
-	const bool cailbrateSensor = true;
+	const bool calibrateSensor = false;
 
 	if(calibrateSensor)
 	{
@@ -133,13 +133,14 @@ cube[23]=0;    //
 		wait1Msec(500);
 		motor[motorC] = 0;
 		CalibrateColourSensor(colour_boundaries_red, colour_boundaries_green, colour_boundaries_blue);
+		WriteToFile(colour_boundaries_red, colour_boundaries_green, colour_boundaries_blue);
 		while(SensorValue[S3] < 7)
 		{}
 		wait1Msec(2000);
 	}
 	else
 	{
-
+		ReadFromFile(colour_boundaries_red, colour_boundaries_green, colour_boundaries_blue);
 	}
 	//startTask(EmergencyStop);
 

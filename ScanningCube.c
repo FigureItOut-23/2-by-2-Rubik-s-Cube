@@ -8,8 +8,8 @@ void CalibrateColourSensor(int* colour_boundaries_red, int* colour_boundaries_gr
 
 		cur_angle -= 360;
 		int highest_RGB[3] = {0,0,0};
-		motor[motorD] = -TURN_POW/2;
-		while(getMotorEncoder(motorD) > cur_angle)
+		motor[ROTATOR_MOTOR] = -TURN_POW/2;
+		while(getMotorEncoder(ROTATOR_MOTOR) > cur_angle)
 		{
 			getColorRGB(S1, col_red, col_green,col_blue);
 			if(col_red > highest_RGB[0])
@@ -19,7 +19,7 @@ void CalibrateColourSensor(int* colour_boundaries_red, int* colour_boundaries_gr
 			if(col_blue > highest_RGB[2])
 				highest_RGB[2] = col_blue;
 		}
-		motor[motorD] = 0;
+		motor[ROTATOR_MOTOR] = 0;
 
 		//Y, G, W, B, R, O
 		colour_boundaries_red[face] = col_red;
@@ -29,44 +29,44 @@ void CalibrateColourSensor(int* colour_boundaries_red, int* colour_boundaries_gr
 		//Orienting Cube
 		if(face < 3)
 		{
-			motor[motorC] = SENSOR_POWER;
+			motor[SENSOR_MOTOR] = SENSOR_POWER;
 			wait1Msec(500);
-			motor[motorC] = 0;
+			motor[SENSOR_MOTOR] = 0;
 			flip();
-			motor[motorC] = -SENSOR_POWER/2;
+			motor[SENSOR_MOTOR] = -SENSOR_POWER/2;
 			wait1Msec(500);
-			motor[motorC] = 0;
+			motor[SENSOR_MOTOR] = 0;
 			wait1Msec(500);
 		}
 		else if(face == 3)
 		{
 			rotate(CCW);
-			motor[motorC] = SENSOR_POWER;
+			motor[SENSOR_MOTOR] = SENSOR_POWER;
 			wait1Msec(500);
-			motor[motorC] = 0;
+			motor[SENSOR_MOTOR] = 0;
 			flip();
-			motor[motorC] = -SENSOR_POWER/2;
+			motor[SENSOR_MOTOR] = -SENSOR_POWER/2;
 			wait1Msec(500);
-			motor[motorC] = 0;
+			motor[SENSOR_MOTOR] = 0;
 			wait1Msec(500);
 		}
 		else if(face==4){
-			motor[motorC] = SENSOR_POWER;
+			motor[SENSOR_MOTOR] = SENSOR_POWER;
 			wait1Msec(500);
-			motor[motorC] = 0;
+			motor[SENSOR_MOTOR] = 0;
 			flip();
 			flip();
-			motor[motorC] = -SENSOR_POWER/2;
+			motor[SENSOR_MOTOR] = -SENSOR_POWER/2;
 			wait1Msec(500);
-			motor[motorC] = 0;
+			motor[SENSOR_MOTOR] = 0;
 			wait1Msec(500);
 		}
 		else{
 			//return to original spot
 			rotate(CW);
-			motor[motorC] = SENSOR_POWER;
+			motor[SENSOR_MOTOR] = SENSOR_POWER;
 			wait1Msec(500);
-			motor[motorC] = 0;
+			motor[SENSOR_MOTOR] = 0;
 			flip();
 			rotate(CW);
 		}
@@ -162,44 +162,44 @@ void ScanCube(int* full_cube, int* colour_boundaries_red, int* colour_boundaries
 		//Orienting Cube
 		if(face < 3)
 		{
-			motor[motorC] = SENSOR_POWER;
+			motor[SENSOR_MOTOR] = SENSOR_POWER;
 			wait1Msec(500);
-			motor[motorC] = 0;
+			motor[SENSOR_MOTOR] = 0;
 			flip();
-			motor[motorC] = -SENSOR_POWER/2;
+			motor[SENSOR_MOTOR] = -SENSOR_POWER/2;
 			wait1Msec(500);
-			motor[motorC] = 0;
+			motor[SENSOR_MOTOR] = 0;
 			wait1Msec(500);
 		}
 		else if(face == 3)
 		{
 			rotate(CCW);
-			motor[motorC] = SENSOR_POWER;
+			motor[SENSOR_MOTOR] = SENSOR_POWER;
 			wait1Msec(500);
-			motor[motorC] = 0;
+			motor[SENSOR_MOTOR] = 0;
 			flip();
-			motor[motorC] = -SENSOR_POWER/2;
+			motor[SENSOR_MOTOR] = -SENSOR_POWER/2;
 			wait1Msec(500);
-			motor[motorC] = 0;
+			motor[SENSOR_MOTOR] = 0;
 			wait1Msec(500);
 		}
 		else if(face==4){
-			motor[motorC] = SENSOR_POWER;
+			motor[SENSOR_MOTOR] = SENSOR_POWER;
 			wait1Msec(500);
-			motor[motorC] = 0;
+			motor[SENSOR_MOTOR] = 0;
 			flip();
 			flip();
-			motor[motorC] = -SENSOR_POWER/2;
+			motor[SENSOR_MOTOR] = -SENSOR_POWER/2;
 			wait1Msec(500);
-			motor[motorC] = 0;
+			motor[SENSOR_MOTOR] = 0;
 			wait1Msec(500);
 		}
 		else{
 			//return to original spot
 			rotate(CW);
-			motor[motorC] = SENSOR_POWER;
+			motor[SENSOR_MOTOR] = SENSOR_POWER;
 			wait1Msec(500);
-			motor[motorC] = 0;
+			motor[SENSOR_MOTOR] = 0;
 			flip();
 			rotate(CW);
 		}
