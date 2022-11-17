@@ -366,7 +366,7 @@ void orientFace(int* cube)
 }
 void setUpTop()
 {
-	while(cube[23] != colourWhite || cube [12] != colourWhite || cube[3] != colourWhite)
+	while(cube[23] != colourWhite || cube [12] != colourWhite || cube[3] != colourWhite || cube[23] != colourWhite)
 	{
 		U(CW, top);
 	}
