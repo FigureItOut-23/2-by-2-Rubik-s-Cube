@@ -411,7 +411,6 @@ void whiteOnTop(int* cube) //have function that rotates the top until in positio
 		whiteAccumulator[indexFace]++;
 	}
 }  
- 
 
 void solvingWhite(int *cube)
 {
@@ -811,8 +810,6 @@ void setUpBottomRows(int* cube)
 		//special algo one! that works relative to this orientation I think
 	}
 }
-
-
 
 int main()
 {
