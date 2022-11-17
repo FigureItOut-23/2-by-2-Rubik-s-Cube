@@ -364,8 +364,14 @@ void orientFace(int* cube)
 			}
 		}
 }
-
-void whiteOnTop(int* cube)
+void setUpTop()
+{
+	while(cube[23] != colourWhite || cube [12] != colourWhite || cube[3] != colourWhite)
+	{
+		U(CW, top);
+	}
+}
+void whiteOnTop(int* cube) //have function that rotates the top until in position c,j, or m)
 {	
 	if(cube[23] == colourWhite  && cube [20] == colourWhite) // if j and k
 	{
@@ -697,6 +703,7 @@ void solvingWhite(int *cube)
 		{
 			D(CW, cube); // rotate bottom function //make one
 	 	}
+	 	setUpTop();
 		whiteOnTop();
 	}
 	
