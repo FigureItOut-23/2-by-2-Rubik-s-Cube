@@ -364,7 +364,53 @@ void orientFace(int* cube)
 			}
 		}
 }
-
+void setUpTop()
+{
+	while(cube[23] != colourWhite || cube [12] != colourWhite || cube[3] != colourWhite || cube[23] != colourWhite)
+	{
+		U(CW, top);
+	}
+}
+void whiteOnTop(int* cube) //have function that rotates the top until in position c,j, or m)
+{	
+	if(cube[23] == colourWhite  && cube [20] == colourWhite) // if j and k
+	{
+		R(CCW, cube);
+		whiteAccumulator[indexFace] += 2;
+	}
+	else if(cube[23] == colourWhite) //if k
+	{
+		R(CW, cube);
+		U(CCW, cube);
+		R(CCW, cube); 
+		//sets up top piece so no need to add to accumulator as doesnt solve
+	}
+	else if(cube[20] == colourWhite) //if j
+	{
+		U(CW, cube);
+		R(CW, cube);
+		U(CCW, cube);
+		R(CCW, cube);
+		whiteAccumulator[indexFace] ++;
+	}
+	else if(cube[3] == colourWhite) // if c
+	{
+		U(CW, cube);
+		R(CW, cube);
+		R(CW, cube);
+		U(CCW, cube);
+		R(CW, cube);
+		R(CW, cube);
+		whiteAccumulator[indexFace] ++;
+	}
+	else if (cube[12] = colourWhite) //if m
+	{
+		R(CW, cube);
+		U(CW, cube);
+		R(CCW, cube);	
+		whiteAccumulator[indexFace]++;
+	}
+}  
 
 void solvingWhite(int *cube)
 {
@@ -737,6 +783,34 @@ void solvingWhite(int *cube)
         printf("\n");
     }
 
+	if(numOfWhite == 1){
+		while(V == colourWhite)
+		{
+			D(); // rotate bottom function
+	 	}
+	 	whiteOnTop();
+	 	
+	}
+	//
+	
+	while(whiteAccumulator[indexFace] < 4)
+	{
+		while(cube[8] == colourWhite) //white bottom corner top right
+		{
+			D(CW, cube); // rotate bottom function //make one
+	 	}
+	 	setUpTop(); //gonna loop infinetely as it doesnt take c into account
+		whiteOnTop();
+	}
+	
+}
+
+void setUpBottomRows(int* cube)
+{
+	while(cube[22] != colourOrange && cube[23] != colourOrange && cube[14] != colourBlue && cube[15] != colourBlue) // front bottom row and left bottom row equal respective colours
+	{
+		//special algo one! that works relative to this orientation I think
+	}
 }
 
 int main()
