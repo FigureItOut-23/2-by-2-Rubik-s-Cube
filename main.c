@@ -1,9 +1,13 @@
 #include "AlgorithmsAndCaseFinder.c";
 #include "ScanningCube.c"
 #include "EndCode.c"
+<<<<<<< HEAD
 #include "SetUpCube.c"
 #include "FirstOrient.c"
 
+=======
+#include "WhiteSolving.c"
+>>>>>>> 8a5cf11c1a6a077cb18d14430cf82694ecfc4765
 
 task EmergencyStop()
 {
@@ -84,6 +88,7 @@ int cube[6*4];
 int cubeCase;
 task main()
 {
+<<<<<<< HEAD
 
 cube[0]=2;    //
 cube[1]=2;    //
@@ -109,6 +114,34 @@ cube[20]=4;
 cube[21]=5;
 cube[22]=5;    //
 cube[23]=3;    //
+=======
+cube[0]=2;    //
+cube[1]=3;    //
+cube[2]=2;    //
+cube[3]=4;    //
+cube[4]=5; //
+cube[5]=3;
+cube[6]=1;
+cube[7]=3;    //
+cube[8]=4;
+cube[9]=0;
+cube[10]=4;
+cube[11]=5;
+cube[12]=1;
+cube[13]=5;    //
+cube[14]=3;    //
+cube[15]=2;
+cube[16]=4;
+cube[17]=2;
+cube[18]=0;    //
+cube[19]=1;    //
+cube[20]=0;
+cube[21]=1;
+cube[22]=0;    //
+cube[23]=5;    //
+
+solvingWhite(cube);
+>>>>>>> 8a5cf11c1a6a077cb18d14430cf82694ecfc4765
 /*
 	SensorType[S1] = sensorEV3_Color;
 	SensorType[S3] = sensorEV3_Ultrasonic;
@@ -181,4 +214,5 @@ cube[23]=3;    //
 		orientFace(cube);
 		FinishCube(cube);
 	//playSound(soundUpwardTones);
+	*/
 }

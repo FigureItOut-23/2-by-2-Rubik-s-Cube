@@ -1,32 +1,35 @@
-void setUpTop()
+#include "MovementFunctions.c"
+
+void setUpTop(int* cube)
 {
-	while(cube[23] != colourWhite || cube [12] != colourWhite || cube[3] != colourWhite || cube[23] != colourWhite)
+	while(cube[22] != 2 && cube [14] != 2 && cube[3] != 2 && cube[21] != 2)
 	{
-		U(CW, top);
+		U(CW, cube);
 	}
 }
-void whiteOnTop(int* cube) //have function that rotates the top until in position c,j, or m)
-{	
+
+void whiteOnTop(int* cube, int* whiteAccumulator, int indexFace) //have function that rotates the top until in position c,j, or m)
+{
 int colourWhite = 2;
-	if(cube[23] == colourWhite  && cube [20] == colourWhite) // if j and k
+	if(cube[22] == colourWhite  && cube [21] == colourWhite) // if j and k
 	{
 		R(CCW, cube);
-		whiteAccumulator[indexFace] += 2;
+		whiteAccumulator[indexFace]+= 2;
 	}
-	else if(cube[23] == colourWhite) //if k
+	else if(cube[21] == colourWhite) //if k
 	{
 		R(CW, cube);
 		U(CCW, cube);
-		R(CCW, cube); 
+		R(CCW, cube);
 		//sets up top piece so no need to add to accumulator as doesnt solve
 	}
-	else if(cube[20] == colourWhite) //if j
+	else if(cube[22] == colourWhite) //if j
 	{
 		U(CW, cube);
 		R(CW, cube);
 		U(CCW, cube);
 		R(CCW, cube);
-		whiteAccumulator[indexFace] ++;
+		whiteAccumulator[indexFace]++;
 	}
 	else if(cube[3] == colourWhite) // if c
 	{
@@ -36,16 +39,16 @@ int colourWhite = 2;
 		U(CCW, cube);
 		R(CW, cube);
 		R(CW, cube);
-		whiteAccumulator[indexFace] ++;
+		whiteAccumulator[indexFace]++;
 	}
-	else if (cube[12] = colourWhite) //if m
+	else if (cube[14] = colourWhite) //if m
 	{
 		R(CW, cube);
 		U(CW, cube);
-		R(CCW, cube);	
+		R(CCW, cube);
 		whiteAccumulator[indexFace]++;
 	}
-}  
+}
 
 void solvingWhite(int *cube)
 {
@@ -58,9 +61,9 @@ void solvingWhite(int *cube)
 //FACE 5: RED 16-19 //back
 //FACE 6: ORANGE 20-23 //front
 	//FINDING FACE WITH MOST WHITE PIECES
-	int whiteAccumulator[6] = {0};
+	int whiteAccumulator[6] = {0,0,0,0,0,0};
 	//let colour white = 7;
-	int colourWhite = 7;
+	int colourWhite = 2;
 
 	for (int j = 0; j < 24; j++)
 		{
@@ -68,7 +71,7 @@ void solvingWhite(int *cube)
 			{
 				if(cube[j] == colourWhite)
 				{
-				whiteAccumulator[0] ++;
+				whiteAccumulator[0]++;
 				}
 			}
 
@@ -76,7 +79,7 @@ void solvingWhite(int *cube)
 			{
 				if(cube[j] == colourWhite)
 				{
-				whiteAccumulator[1] ++;
+				whiteAccumulator[1]++;
 				}
 			}
 
@@ -84,7 +87,7 @@ void solvingWhite(int *cube)
 			{
 				if(cube[j] == colourWhite)
 				{
-				whiteAccumulator[2] ++;
+				whiteAccumulator[2]++;
 				}
 			}
 
@@ -92,7 +95,7 @@ void solvingWhite(int *cube)
 			{
 				if(cube[j] == colourWhite)
 				{
-				whiteAccumulator[3] ++;
+				whiteAccumulator[3]++;
 				}
 			}
 
@@ -100,7 +103,7 @@ void solvingWhite(int *cube)
 			{
 				if(cube[j] == colourWhite)
 				{
-				whiteAccumulator[4] ++;
+				whiteAccumulator[4]++;
 				}
 			}
 
@@ -108,7 +111,7 @@ void solvingWhite(int *cube)
 			{
 				if(cube[j] == colourWhite)
 				{
-				whiteAccumulator[5] ++;
+				whiteAccumulator[5]++;
 				}
 			}
 		}
@@ -126,14 +129,14 @@ void solvingWhite(int *cube)
 		}
 	}
 	//THEREFORE FACE [c] has the most white pieces
-	printf( "Face with most white pieces is %d", indexFace);
-  
+
+
   int tempArray[12] = {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9};
-  
-  indexFace = 0;
+
+
 	if(indexFace == 0) //if face with most white is the top
 	{
-    
+
     tempArray[0] = cube[9];
     tempArray[1] = cube[10];
     tempArray[2] = cube[11];
@@ -170,10 +173,10 @@ void solvingWhite(int *cube)
     cube[20] = tempArray[10]; // 20 <--> 22
     cube[23] = cube[21];
     cube[21] = tempArray[11]; // 21 <--> 23
-    
+
 	}
   else if(indexFace == 1) //if face with most white is left
-	{  
+	{
     tempArray[0] = cube[12];
     tempArray[1] = cube[13];
     tempArray[2] = cube[14];
@@ -188,14 +191,14 @@ void solvingWhite(int *cube)
     }
     for (int j = 0; j < 4; j++)
     {
-      cube [j+4] = cube [j];   
+      cube [j+4] = cube [j];
     }
     for (int j=0; j < 4; j++)
     {
       cube[j] = tempArray[j];
     }
-    
-    
+
+
     //Green and blue switch
 		/*
     8 --> 12
@@ -221,7 +224,7 @@ void solvingWhite(int *cube)
     17 --> 16
     16 --> 19
     19 --> 18
-    18 --> 17    
+    18 --> 17
     */
 	}
   else if(indexFace == 2)
@@ -232,7 +235,7 @@ void solvingWhite(int *cube)
   {
     for (int i = 0; i < 4; i++)
     {
-      tempArrayij] = cube[i];
+      tempArray[i] = cube[i];
     }
     for (int j = 0; j < 12 ;j++)
     {
@@ -242,7 +245,7 @@ void solvingWhite(int *cube)
     {
       cube[k] = tempArray[k-12];
     }
-    
+
     tempArray[0] = cube[23];
     tempArray[1] = cube[18];
     cube[23] = cube[20];
@@ -252,9 +255,9 @@ void solvingWhite(int *cube)
     cube[18] = cube[17];
     cube[17] = cube[16];
     cube[16] = cube[19];
-    cube[19] = tempArray[1];    
-    
-    
+    cube[19] = tempArray[1];
+
+
     /*
     8 --> 4
     9 --> 5
@@ -313,9 +316,9 @@ void solvingWhite(int *cube)
     cube[15] = cube[14];
     cube[14] = cube [13];
     cube[13] = cube[12];
-    cube[12] = tempArray[9]; 
+    cube[12] = tempArray[9];
 
-    
+
     /*
     8 --> 18
     9 --> 19
@@ -343,12 +346,12 @@ void solvingWhite(int *cube)
     13 --> 14
     */
   }
-  else 
+  else
   {
     for (int i = 0; i < 4; i ++)
     {
       tempArray[i] = cube[i+20];
-      
+
     }
     for (int j = 20; j < 24; j++)
     {
@@ -356,7 +359,7 @@ void solvingWhite(int *cube)
     }
     for (int k = 16; k < 20; k++)
     {
-      tempArray[k-12] = cube[k]; 
+      tempArray[k-12] = cube[k];
     }
     cube[18] = cube[2];
     cube[19] = cube[3];
@@ -370,7 +373,7 @@ void solvingWhite(int *cube)
     cube[9] = tempArray[7];
     cube[10] = tempArray[4];
     cube[11] = tempArray[5];
-    
+
     tempArray[8] = cube[4];
     cube[4] = cube[7];
     cube[7] = cube[6];
@@ -381,21 +384,21 @@ void solvingWhite(int *cube)
     cube[12] = cube[13];
     cube[13] = cube[14];
     cube[14] = tempArray[9];
-    
-    
+
+
     /*
-    8 --> 20 
-    9 --> 21 
-    10 --> 22 
-    11 --> 23 
-    21 --> 3 
-    20 --> 2 
-    22 --> 0  
-    23 --> 1 
-    2 --> 18 
-    3 --> 19 
-    0 --> 16 
-    1 --> 17 
+    8 --> 20
+    9 --> 21
+    10 --> 22
+    11 --> 23
+    21 --> 3
+    20 --> 2
+    22 --> 0
+    23 --> 1
+    2 --> 18
+    3 --> 19
+    0 --> 16
+    1 --> 17
     18 --> 8
     19 --> 9
     16 --> 10
@@ -410,24 +413,17 @@ void solvingWhite(int *cube)
     12 --> 15
     */
   }
-  
-	for (int x = 0; x < 24; x++)
-    {
-        printf( "Cube at index %d", x);
-        printf(" = %d", cube[x]);
-        printf("\n");
-    }
 
 
 	while(whiteAccumulator[indexFace] < 4)
 	{
-		while(cube[8] == colourWhite) //white bottom corner top right
+		while(cube[10] == 2) //white bottom corner top right
 		{
 			U(CW, cube); // rotate bottom function //make one
-			rot(CCW, cube); //this is instead 
+			rot(CCW, cube); //this is instead
 	 	}
-	 	setUpTop(); //gonna loop infinetely as it doesnt take c into account
-		whiteOnTop();
+	 	setUpTop(cube);
+		whiteOnTop(cube, whiteAccumulator, indexFace);
 	}
-	
+
 }
