@@ -1,7 +1,7 @@
 #include "AlgorithmsAndCaseFinder.c"
 
 
-void FinishCube(int * cube)
+void SetUpCube(int * cube)
 {
 	if (cube[22]!=cube[23] && cube[4]!=cube[7] && cube[18]!=cube[19] && cube[13]!=cube[14]) //No top face is solved
 		{
@@ -17,7 +17,7 @@ void FinishCube(int * cube)
 
 	if(cube[22]==cube[23] && cube[4]==cube[7] && cube[18]==cube[19] && cube[13]==cube[14]) //All faces are solved
 	{
-		while(cube[22]!=cube[21])
+		while(cube[22]!=5)
 		{
 			U(CW, cube);
 		}
@@ -30,7 +30,7 @@ void FinishCube(int * cube)
 			if(cube[22]==1) //Green.
 			{
 				U(CW, cube);
-				rot(CCW, cube);
+				rot(CW, cube);
 				alg1(cube);
 				U(CW, cube);
 			}

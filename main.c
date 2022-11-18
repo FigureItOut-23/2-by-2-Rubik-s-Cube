@@ -1,6 +1,9 @@
 #include "AlgorithmsAndCaseFinder.c";
 #include "ScanningCube.c"
 #include "EndCode.c"
+#include "SetUpCube.c"
+#include "FirstOrient.c"
+
 
 task EmergencyStop()
 {
@@ -81,31 +84,31 @@ int cube[6*4];
 int cubeCase;
 task main()
 {
-cube[0]=0;    //
-cube[1]=0;    //
-cube[2]=5;    //
-cube[3]=1;    //
-cube[4]=4; //
-cube[5]=1;
-cube[6]=1;
-cube[7]=3;    //
-cube[8]=2;
-cube[9]=2;
-cube[10]=2;
-cube[11]=2;
-cube[12]=3;
-cube[13]=1;    //
+cube[0]=2;    //
+cube[1]=2;    //
+cube[2]=2;    //
+cube[3]=2;    //
+cube[4]=3; //
+cube[5]=3;
+cube[6]=4;
+cube[7]=5;    //
+cube[8]=0;
+cube[9]=1;
+cube[10]=0;
+cube[11]=1;
+cube[12]=0;
+cube[13]=3;    //
 cube[14]=4;    //
-cube[15]=3;
-cube[16]=4;
+cube[15]=5;
+cube[16]=5;
 cube[17]=4;
-cube[18]=3;    //
+cube[18]=4;    //
 cube[19]=5;    //
-cube[20]=5;
-cube[21]=5;
-cube[22]=0;    //
-cube[23]=0;    //
-
+cube[20]=0;
+cube[21]=3;
+cube[22]=1;    //
+cube[23]=1;    //
+/*
 	SensorType[S1] = sensorEV3_Color;
 	SensorType[S3] = sensorEV3_Ultrasonic;
 	wait1Msec(50);
@@ -117,11 +120,12 @@ cube[23]=0;    //
 	nMotorEncoder[motorB] = 0;
 	nMotorEncoder[motorC] = 0;
 	nMotorEncoder[motorD] = 0;
-
+*/
 	int colour_boundaries_red[6] = {0,0,0,0,0,0};
 	int colour_boundaries_green[6] = {0,0,0,0,0,0};
 	int colour_boundaries_blue[6] = {0,0,0,0,0,0};
-
+/*
+<<<<<<< Updated upstream
 	const bool calibrateSensor = false;
 
 	if(calibrateSensor)
@@ -142,6 +146,15 @@ cube[23]=0;    //
 	{
 		ReadFromFile(colour_boundaries_red, colour_boundaries_green, colour_boundaries_blue);
 	}
+=======
+/*
+	while(SensorValue[S3] > 7)
+	{}
+	wait1Msec(5000);
+	motor[motorC] = -SENSOR_POWER/2;
+	wait1Msec(500);
+	motor[motorC] = 0;
+>>>>>>> Stashed changes
 	//startTask(EmergencyStop);
 
 	while(SensorValue[S3] > 7)
@@ -154,13 +167,15 @@ cube[23]=0;    //
 	motor[motorC] = 0;
 	wait1Msec(500);
 	//playSound(soundBeepBeep);
+*/
+	//ScanCube(cube, colour_boundaries_red, colour_boundaries_green, colour_boundaries_blue);
 
-	ScanCube(cube, colour_boundaries_red, colour_boundaries_green, colour_boundaries_blue);
+	//wait1Msec(2000);
+	SetUpCube(cube);
+	//FirstOrient(cube);
 
-	wait1Msec(2000);
-
-	cubeCase = findCase(cube);
-	orientFace(cube);
-	FinishCube(cube);
+	//cubeCase = findCase(cube);
+	//orientFace(cube);
+	//FinishCube(cube);
 	//playSound(soundUpwardTones);
 }
