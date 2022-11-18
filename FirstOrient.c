@@ -1,4 +1,4 @@
-void FirstOrient(int * cube)
+void FirstOrient(int* cube)
 {
 	while(cube[22]!=5)
 	{

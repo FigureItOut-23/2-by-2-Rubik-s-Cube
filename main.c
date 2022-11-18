@@ -84,30 +84,31 @@ int cube[6*4];
 int cubeCase;
 task main()
 {
+
 cube[0]=2;    //
 cube[1]=2;    //
 cube[2]=2;    //
 cube[3]=2;    //
-cube[4]=3; //
-cube[5]=3;
-cube[6]=4;
-cube[7]=5;    //
-cube[8]=0;
-cube[9]=1;
-cube[10]=0;
-cube[11]=1;
-cube[12]=0;
+cube[4]=4; //
+cube[5]=1;
+cube[6]=0;
+cube[7]=4;    //
+cube[8]=4;
+cube[9]=5;
+cube[10]=3;
+cube[11]=3;
+cube[12]=1;
 cube[13]=3;    //
-cube[14]=4;    //
-cube[15]=5;
-cube[16]=5;
-cube[17]=4;
-cube[18]=4;    //
+cube[14]=1;    //
+cube[15]=0;
+cube[16]=0;
+cube[17]=0;
+cube[18]=1;    //
 cube[19]=5;    //
-cube[20]=0;
-cube[21]=3;
-cube[22]=1;    //
-cube[23]=1;    //
+cube[20]=4;
+cube[21]=5;
+cube[22]=5;    //
+cube[23]=3;    //
 /*
 	SensorType[S1] = sensorEV3_Color;
 	SensorType[S3] = sensorEV3_Ultrasonic;
@@ -171,11 +172,13 @@ cube[23]=1;    //
 	//ScanCube(cube, colour_boundaries_red, colour_boundaries_green, colour_boundaries_blue);
 
 	//wait1Msec(2000);
-	SetUpCube(cube);
-	//FirstOrient(cube);
+		//solvingWhite(cube);
 
-	//cubeCase = findCase(cube);
-	//orientFace(cube);
-	//FinishCube(cube);
+		SetUpCube(cube);
+		FirstOrient(cube);
+
+		cubeCase = findCase(cube);
+		orientFace(cube);
+		FinishCube(cube);
 	//playSound(soundUpwardTones);
 }

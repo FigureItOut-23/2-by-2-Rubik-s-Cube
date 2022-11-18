@@ -2,7 +2,7 @@
 
 void rotate(int angle)
 {
-
+/*
 	cur_angle += angle;
 	motor[ROTATOR_MOTOR] = TURN_POW*(angle/abs(angle));
 	if(getMotorEncoder(ROTATOR_MOTOR) < cur_angle)
@@ -15,7 +15,7 @@ void rotate(int angle)
 		{}
 	}
 	motor[ROTATOR_MOTOR] = 0;
-
+*/
 }
 
 void rot(int angle, int * cube)
