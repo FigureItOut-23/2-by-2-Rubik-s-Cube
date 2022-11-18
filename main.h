@@ -5,12 +5,18 @@
 const int TURN_POW = 12;
 const int CCW = 90;
 const int CW = -90;
-const int WACKER_OFFSET = 5;
+const int WHACKER_OFFSET = 7;
 const int CORNERS_ON_FACE = 4;
-const int SENSOR_POWER = 25;
+const int SENSOR_POWER = 30;
 const int SIDES_CUBE = 6;
 
-int cur_angle = 0;
+int cur_angle = 5;
+
+//Motor constants
+const int FLIPPER_MOTOR = 0; //MotorA
+const int WHACKER_MOTOR = 1; //MotorB
+const int SENSOR_MOTOR = 2; //MotorC
+const int ROTATOR_MOTOR = 3; //MotorD
 
 //Movement Functions
 void rotate(int angle);
