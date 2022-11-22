@@ -145,13 +145,13 @@ else if(findCase(cube)==3)
 
 else if(findCase(cube)==4)
 {
-	if(cube[4]==0 && cube[7]==0)//Assuming 1 is green
+	if(cube[4]==0 && cube[7]==0)
 	{
 		alg2(cube);
 		U(CCW, cube);
 		alg2(cube);
-
 	}
+
 	else if(cube[4]!=0 && cube[7]==0)
 	{
 		U(CCW, cube);
@@ -176,38 +176,15 @@ else if(findCase(cube)==4)
 }
 else if(findCase(cube)==5)
 {
-	if(cube[23]==5)//Assuming orange is 5
+	while(cube[23]!=0)
 	{
-		alg2(cube);
 		U(CW, cube);
-		U(CW, cube);// Up 2 CW
-		alg3(cube);
 	}
-	else if(cube[7]==5)
-	{
-		U(CCW, cube);
-		alg2(cube);
-		U(CW, cube);
-		U(CW, cube);// Up 2 CW
-		alg3(cube);
-	}
-	else if(cube[14]==5)
-	{
-		U(CW, cube);
-		U(CW, cube);
-		U(CW, cube);// Up 2 CW
-		alg3(cube);
-	}
-	else
-	{
-		U(CW, cube);
-		U(CW, cube);
 		alg2(cube);
 		U(CW, cube);
 		U(CW, cube);// Up 2 CW
 		alg3(cube);
 
-	}
 }
 
 
@@ -276,4 +253,3 @@ else if(findCase(cube)==6) //CHECKED
 		}
 	}
 }
-

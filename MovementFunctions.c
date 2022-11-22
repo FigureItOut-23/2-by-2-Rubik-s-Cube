@@ -2,7 +2,7 @@
 
 void rotate(int angle)
 {
-
+/*
 	cur_angle += angle;
 	motor[ROTATOR_MOTOR] = TURN_POW*(angle/abs(angle));
 	if(getMotorEncoder(ROTATOR_MOTOR) < cur_angle)
@@ -15,7 +15,7 @@ void rotate(int angle)
 		{}
 	}
 	motor[ROTATOR_MOTOR] = 0;
-
+*/
 }
 
 void rot(int angle, int * cube)
@@ -156,6 +156,75 @@ void flip()
 	motor[WHACKER_MOTOR] = 0;
 
 }
+
+void trackedflip(int * cube)
+{
+/*
+	//Flip cube
+	motor[FLIPPER_MOTOR] = -15;
+	nMotorEncoder[FLIPPER_MOTOR] = 0;
+	while(abs(nMotorEncoder[FLIPPER_MOTOR]) < 95)
+	{}
+	motor[FLIPPER_MOTOR] = 0;
+	motor[FLIPPER_MOTOR] = 10;
+	wait1Msec(1500);
+	motor[FLIPPER_MOTOR] = 0;
+
+	//Whack Cube
+	motor[WHACKER_MOTOR] = -20;
+	wait1Msec(1000);
+	motor[WHACKER_MOTOR] = 0;
+	motor[WHACKER_MOTOR] = 20;
+	wait1Msec(1000);
+	motor[WHACKER_MOTOR] = 0;
+	*/
+
+				int temp[24];
+			//Front Rotation
+			temp[0]=cube[23];
+			cube[23]=cube[20];
+			cube[20]=cube[21];
+			cube[21]=cube[22];
+			cube[22]=temp[0];
+
+			//Back Rotation
+
+			temp[1]=cube[16];
+			cube[16]=cube[19];
+			cube[19]=cube[18];
+			cube[18]=cube[17];
+			cube[17]=temp[1];
+
+			//Sides Rotation
+			//Store Top into Temp Array
+
+			temp[2]=cube[0];
+			temp[3]=cube[1];
+			temp[4]=cube[2];
+			temp[5]=cube[3];
+
+			cube[0]=cube[4];
+			cube[1]=cube[5];
+			cube[2]=cube[6];
+			cube[3]=cube[7];
+
+			cube[4]=cube[8];
+			cube[5]=cube[9];
+			cube[6]=cube[10];
+			cube[7]=cube[11];
+
+			cube[8]=cube[12];
+			cube[9]=cube[13];
+			cube[10]=cube[14];
+			cube[11]=cube[15];
+
+			cube[12]=temp[2];
+			cube[13]=temp[3];
+			cube[14]=temp[4];
+			cube[15]=temp[5];
+
+}
+
 
 
 

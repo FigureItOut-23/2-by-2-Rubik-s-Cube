@@ -30,7 +30,7 @@ void FinishCube(int * cube)
 			if(cube[22]==1) //Green.
 			{
 				U(CW, cube);
-				rot(CW, cube);
+				rot(CCW, cube);
 				alg1(cube);
 				U(CW, cube);
 			}
