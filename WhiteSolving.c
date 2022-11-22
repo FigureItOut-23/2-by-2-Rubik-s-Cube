@@ -137,6 +137,9 @@ void solvingWhite(int *cube)
 	if(indexFace == 0) //if face with most white is the top
 	{
 
+		trackedFlip(cube);
+		trackedFlip(cube);
+		/*
     tempArray[0] = cube[9];
     tempArray[1] = cube[10];
     tempArray[2] = cube[11];
@@ -173,10 +176,15 @@ void solvingWhite(int *cube)
     cube[20] = tempArray[10]; // 20 <--> 22
     cube[23] = cube[21];
     cube[21] = tempArray[11]; // 21 <--> 23
-
+		*/
 	}
   else if(indexFace == 1) //if face with most white is left
 	{
+		trackedFlip(cube);
+		trackedFlip(cube);
+		trackedFlip(cube);
+
+		/*
     tempArray[0] = cube[12];
     tempArray[1] = cube[13];
     tempArray[2] = cube[14];
@@ -197,6 +205,7 @@ void solvingWhite(int *cube)
     {
       cube[j] = tempArray[j];
     }
+    */
 
 
     //Green and blue switch
@@ -231,9 +240,13 @@ void solvingWhite(int *cube)
   {
     // do nothing
   }
-  else if (indexFace == 3)
+  else if (indexFace == 3)//if right
   {
-    for (int i = 0; i < 4; i++)
+
+
+  trackedFlip(cube);
+    /*
+  	for (int i = 0; i < 4; i++)
     {
       tempArray[i] = cube[i];
     }
@@ -256,7 +269,7 @@ void solvingWhite(int *cube)
     cube[17] = cube[16];
     cube[16] = cube[19];
     cube[19] = tempArray[1];
-
+		*/
 
     /*
     8 --> 4
@@ -285,8 +298,12 @@ void solvingWhite(int *cube)
     18 --> 19
     */
   }
-  else if (indexFace == 4)
+  else if (indexFace == 4) //if back
   {
+  	rot(CW, cube);
+  	trackedFlip(cube);
+  	rot(CCW, cube);
+  	/*
     for (int i = 0; i < 8; i++)
     {
       tempArray[i] = cube[i+16];
@@ -317,7 +334,7 @@ void solvingWhite(int *cube)
     cube[14] = cube [13];
     cube[13] = cube[12];
     cube[12] = tempArray[9];
-
+	*/
 
     /*
     8 --> 18
@@ -346,8 +363,12 @@ void solvingWhite(int *cube)
     13 --> 14
     */
   }
-  else
+  else // if front
   {
+  	rot(CCW, cube);
+  	trackedFlip(cube);
+  	rot(CCW, cube);
+  	/*
     for (int i = 0; i < 4; i ++)
     {
       tempArray[i] = cube[i+20];
@@ -384,7 +405,7 @@ void solvingWhite(int *cube)
     cube[12] = cube[13];
     cube[13] = cube[14];
     cube[14] = tempArray[9];
-
+		*/
 
     /*
     8 --> 20
