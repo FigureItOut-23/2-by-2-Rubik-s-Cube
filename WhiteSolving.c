@@ -2,6 +2,13 @@
 
 void setUpTop(int* cube)
 {
+	if(cube[15] == 2) //if beside k - ind 15
+	{
+		R(CW, cube);
+		U(CCW, cube);
+		R(CCW, cube);
+		//sets up top piece so no need to add to accumulator as doesnt solve
+	}
 	while(cube[22] != 2 && cube [14] != 2 && cube[3] != 2 && cube[21] != 2)
 	{
 		U(CW, cube);
@@ -438,7 +445,7 @@ void solvingWhite(int *cube)
 
 	while(whiteAccumulator[indexFace] < 4)
 	{
-		while(cube[10] == 2) //white bottom corner top right
+		while(cube[10] == 2) //white bottom corner top right PROBABLE ERROR
 		{
 			U(CW, cube); // rotate bottom function //make one
 			rot(CCW, cube); //this is instead

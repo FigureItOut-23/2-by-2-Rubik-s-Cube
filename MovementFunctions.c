@@ -2,7 +2,6 @@
 
 void rotate(int angle)
 {
-/*
 	cur_angle += angle;
 	motor[ROTATOR_MOTOR] = TURN_POW*(angle/abs(angle));
 	if(getMotorEncoder(ROTATOR_MOTOR) < cur_angle)
@@ -15,8 +14,27 @@ void rotate(int angle)
 		{}
 	}
 	motor[ROTATOR_MOTOR] = 0;
-*/
 }
+
+void finishingMove(int angle, int final_pow)
+{
+	cur_angle += angle;
+	motor[ROTATOR_MOTOR] = final_pow*(angle/abs(angle));
+	if(getMotorEncoder(ROTATOR_MOTOR) < cur_angle)
+	{
+		while(getMotorEncoder(ROTATOR_MOTOR) < cur_angle)
+		{}
+	}
+	else{
+		while(getMotorEncoder(ROTATOR_MOTOR) > cur_angle)
+		{}
+	}
+	motor[ROTATOR_MOTOR] = 0;
+  motor[WHACKER_MOTOR] = final_pow;
+	wait1Msec(10000);
+  motor[WHACKER_MOTOR] = 0;
+}
+
 
 void rot(int angle, int * cube)
 {
@@ -159,7 +177,7 @@ void flip()
 
 void trackedflip(int * cube)
 {
-/*
+
 	//Flip cube
 	motor[FLIPPER_MOTOR] = -15;
 	nMotorEncoder[FLIPPER_MOTOR] = 0;
@@ -177,7 +195,7 @@ void trackedflip(int * cube)
 	motor[WHACKER_MOTOR] = 20;
 	wait1Msec(1000);
 	motor[WHACKER_MOTOR] = 0;
-	*/
+
 
 				int temp[24];
 			//Front Rotation
@@ -240,10 +258,6 @@ motor[WHACKER_MOTOR] = 0;
 
 void returnWhacker()
 {
-
-	motor[WHACKER_MOTOR] = -20;
-	wait1Msec(500);
-  motor[WHACKER_MOTOR] = 0;
   motor[WHACKER_MOTOR] = 20;
 	wait1Msec(1000);
   motor[WHACKER_MOTOR] = 0;
@@ -261,7 +275,6 @@ void R(int direction, int* cube)
 		flip();
 		hold();
 		rotate(CCW + WHACKER_OFFSET);
-		//wait1Msec(100000);
 		returnWhacker();
 		rotate(CCW - WHACKER_OFFSET);
     flip();
@@ -426,8 +439,9 @@ void B(int direction, int* cube)
 		hold();
 		rotate(CW - WHACKER_OFFSET);
 		returnWhacker();
+		rotate(WHACKER_OFFSET);
 		flip();
-		rotate(CW + WHACKER_OFFSET);
+		rotate(CW);
 
 		//Map Virtual Cube
 		int temp[3]={0,0,0};

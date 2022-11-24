@@ -5,12 +5,16 @@
 const int TURN_POW = 12;
 const int CCW = 90;
 const int CW = -90;
-const int WHACKER_OFFSET = 7;
+const int WHACKER_OFFSET = 8;
 const int CORNERS_ON_FACE = 4;
 const int SENSOR_POWER = 30;
 const int SIDES_CUBE = 6;
 
-int cur_angle = 5;
+const float MILLI_MINUTES = 1.0/(1000*60);
+
+int cur_angle = 0;
+
+bool done = false;
 
 //Motor constants
 const int FLIPPER_MOTOR = 0; //MotorA

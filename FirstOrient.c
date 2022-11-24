@@ -1,3 +1,4 @@
+#include "MovementFunctions.c"
 void FirstOrient(int* cube)
 {
 	while(cube[22]!=5)
