@@ -188,7 +188,7 @@ task emergencyStop()
 	motor[FLIPPER_MOTOR] = 10;
 	wait1Msec(1500);
 	motor[FLIPPER_MOTOR] = 0;
-	stopAllTasks();
+	done = true;
 }
 task main()
 {
