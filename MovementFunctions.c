@@ -1,20 +1,35 @@
-#include "main.h"
+#include "main.h" //includes header file "main.h"
 
-void rotate(int angle)
+/*
+Purpose of File:
+This file will hold the code responsible for rotating and flipping the cube.
+Primary code that most other files use.
+*/
+
+//function to rotate the cube as a whole. Uses the motors from the rotating base
+void rotate(int angle) 
 {
-	cur_angle += angle;
-	motor[ROTATOR_MOTOR] = TURN_POW*(angle/abs(angle));
-	if(getMotorEncoder(ROTATOR_MOTOR) < cur_angle)
+	cur_angle += angle; //accumulates the angle instead of resetting it to
+	//preven error build up
+	motor[ROTATOR_MOTOR] = TURN_POW*(angle/abs(angle)); //sets base motor to 
+	//turn 
+	
+	if(getMotorEncoder(ROTATOR_MOTOR) < cur_angle)//if motorEncoder value is 
+	//less than current angle...
 	{
-		while(getMotorEncoder(ROTATOR_MOTOR) < cur_angle)
+		//turns until motorEncoder value is more than current angle
+		while(getMotorEncoder(ROTATOR_MOTOR) < cur_angle) 
 		{}
 	}
-	else{
+	else //otherwise
+	{ 
+		//turns until motorEncoder value is less than current angle
 		while(getMotorEncoder(ROTATOR_MOTOR) > cur_angle)
 		{}
 	}
-	motor[ROTATOR_MOTOR] = 0;
+	motor[ROTATOR_MOTOR] = 0; //sets motor power to 0
 }
+
 
 void finishingMove(int angle, int final_pow)
 {
@@ -30,12 +45,14 @@ void finishingMove(int angle, int final_pow)
 		{}
 	}
 	motor[ROTATOR_MOTOR] = 0;
-  motor[WHACKER_MOTOR] = final_pow;
+  	motor[WHACKER_MOTOR] = final_pow;
 	wait1Msec(10000);
-  motor[WHACKER_MOTOR] = 0;
+  	motor[WHACKER_MOTOR] = 0;
 }
 
-
+//function idential to rotate function but includes index mapping.
+//index mapping means that all indices of the cube are changed corresponding to
+//a rotation of the entire cube
 void rot(int angle, int * cube)
 {
 
@@ -54,9 +71,10 @@ void rot(int angle, int * cube)
 
 
 	//Move Virtual Cube
+	//indice mappings
 	if(angle < 0)
 	{
-		int temp[24];
+		int temp[24]; //temp array to store old values and swap with cube array
 		//Yellow (Top) Rotation
 		temp[0]=cube[0];
 		cube[0]=cube[1];
@@ -151,21 +169,24 @@ void rot(int angle, int * cube)
 	}
 }
 
-
+//function responsible for the mechanism that flips the cube
 void flip()
 {
 
 	//Flip cube
-	motor[FLIPPER_MOTOR] = -15;
-	nMotorEncoder[FLIPPER_MOTOR] = 0;
-	while(abs(nMotorEncoder[FLIPPER_MOTOR]) < 95)
+	motor[FLIPPER_MOTOR] = -15; //power of pushing arm
+	nMotorEncoder[FLIPPER_MOTOR] = 0; //resets motor encoder of this arm motor
+	while(abs(nMotorEncoder[FLIPPER_MOTOR]) < 95) //95 is degree of motion 
+	//needed to flip cube without over turning it
 	{}
 	motor[FLIPPER_MOTOR] = 0;
 	motor[FLIPPER_MOTOR] = 10;
-	wait1Msec(1500);
+	wait1Msec(1500); //waits 1.5 seconds so arm is pushing for that amount of 
+	//time
 	motor[FLIPPER_MOTOR] = 0;
 
-	//Whack Cube
+	//Whack Cube 
+	//whacks cube back into base using the whacker arm and motor
 	motor[WHACKER_MOTOR] = -20;
 	wait1Msec(1000);
 	motor[WHACKER_MOTOR] = 0;
@@ -175,6 +196,7 @@ void flip()
 
 }
 
+//identical to flip function but tracks the indice changes of the cube.
 void trackedflip(int * cube)
 {
 
@@ -197,90 +219,99 @@ void trackedflip(int * cube)
 	motor[WHACKER_MOTOR] = 0;
 
 
-				int temp[24];
-			//Front Rotation
-			temp[0]=cube[23];
-			cube[23]=cube[20];
-			cube[20]=cube[21];
-			cube[21]=cube[22];
-			cube[22]=temp[0];
+	int temp[24]; //temp array to store temp values of cube array, so that the 
+	//indices of the cube array can swap accordingly
+	//Front Rotation
+	temp[0]=cube[23];
+	cube[23]=cube[20];
+	cube[20]=cube[21];
+	cube[21]=cube[22];
+	cube[22]=temp[0];
+	//Back Rotation
+	temp[1]=cube[16];
+	cube[16]=cube[19];
+	cube[19]=cube[18];
+	cube[18]=cube[17];
+	cube[17]=temp[1];
+	//Sides Rotation
+	//Store Top into Temp Array
 
-			//Back Rotation
+	temp[2]=cube[0];
+	temp[3]=cube[1];
+	temp[4]=cube[2];
+	temp[5]=cube[3];
 
-			temp[1]=cube[16];
-			cube[16]=cube[19];
-			cube[19]=cube[18];
-			cube[18]=cube[17];
-			cube[17]=temp[1];
+	cube[0]=cube[4];
+	cube[1]=cube[5];
+	cube[2]=cube[6];
+	cube[3]=cube[7];
 
-			//Sides Rotation
-			//Store Top into Temp Array
+	cube[4]=cube[8];
+	cube[5]=cube[9];
+	cube[6]=cube[10];
+	cube[7]=cube[11];
 
-			temp[2]=cube[0];
-			temp[3]=cube[1];
-			temp[4]=cube[2];
-			temp[5]=cube[3];
+	cube[8]=cube[12];
+	cube[9]=cube[13];
+	cube[10]=cube[14];
+	cube[11]=cube[15];
 
-			cube[0]=cube[4];
-			cube[1]=cube[5];
-			cube[2]=cube[6];
-			cube[3]=cube[7];
-
-			cube[4]=cube[8];
-			cube[5]=cube[9];
-			cube[6]=cube[10];
-			cube[7]=cube[11];
-
-			cube[8]=cube[12];
-			cube[9]=cube[13];
-			cube[10]=cube[14];
-			cube[11]=cube[15];
-
-			cube[12]=temp[2];
-			cube[13]=temp[3];
-			cube[14]=temp[4];
-			cube[15]=temp[5];
+	cube[12]=temp[2];
+	cube[13]=temp[3];
+	cube[14]=temp[4];
+	cube[15]=temp[5];
 
 }
 
 
-
-
+//function that uses whacker to hold the top of the cube in place allowing for
+//twisting of the cube to get different orientations
 void hold()
 {
 
 	nMotorEncoder[WHACKER_MOTOR] = 0;
-  motor[WHACKER_MOTOR] = -20;
-wait1Msec(700);
-motor[WHACKER_MOTOR] = 0;
+  	motor[WHACKER_MOTOR] = -20;
+	wait1Msec(700);
+	motor[WHACKER_MOTOR] = 0;
 
 }
 
+//function to put whacker back in its original position
 void returnWhacker()
 {
-  motor[WHACKER_MOTOR] = 20;
+	motor[WHACKER_MOTOR] = 20;
 	wait1Msec(1000);
-  motor[WHACKER_MOTOR] = 0;
+ 	motor[WHACKER_MOTOR] = 0;
 
 }
 
 
 //Right face rotation
+//that takes direction (clockwise or counterclockwise) and the cube array that
+//is passed by pointer so that we can change indices of virtual cube as well.
+
 void R(int direction, int* cube)
 {
-	if(direction == CW)
+	if(direction == CW) //if direction picked is clockwise...
 	{
-		rotate(CW);
-		rotate(CW);//Rotate 180 degrees
-		flip();
+		rotate(CW); //Rotate 90 degrees clockwise
+		rotate(CW);//Rotate 90 degrees clockwise
+		flip(); //flip
 		hold();
-		rotate(CCW + WHACKER_OFFSET);
+		rotate(CCW + WHACKER_OFFSET); //Whacker offset is integer value chosen
+		//to account for overturning due to inertia
 		returnWhacker();
 		rotate(CCW - WHACKER_OFFSET);
-    flip();
-    //rotate(-20);
-    //Map Virtual Cube
-    int temp[3]={0,0,0};
+    	flip();
+    	/*
+    	Note: rot() and trackedFlip() are not being used as there is no point to
+    	change indices for intermediate steps. It only matters for when the 
+    	proper rotatons such as R are finished    	
+    	*/
+	    
+	    //Map Virtual Cube
+	    //change indices affected by right face rotation...
+	    int temp[3]={0,0,0};
 
 		temp[0]= cube[22];
 		temp[1]= cube[21];
@@ -300,14 +331,14 @@ void R(int direction, int* cube)
 		cube[13]=temp[2];
 	}
 
-	else
+	else //if counterclockwise...
 	{
 		rotate(CW);
 		rotate(CW);//Rotate 180 degrees
 		flip();
 		hold();
 		rotate(CW - WHACKER_OFFSET);
-    returnWhacker();
+    	returnWhacker();
 		rotate(CW + WHACKER_OFFSET);
 		flip();
 		//Map Virtual Cube
@@ -335,7 +366,8 @@ void R(int direction, int* cube)
 
 
 
-//Upper face
+//Upper face rotation function. Similar to R(). Same concept but does everything
+//relative to the top face
 void U(int direction, int* cube)
 {
 	if(direction==CW)
@@ -365,7 +397,7 @@ void U(int direction, int* cube)
 		cube[3]=temp[2];
 }
 
-	else
+	else //counterclockwise...
 	{
 		hold();
 		rotate(CW - WHACKER_OFFSET);
@@ -393,7 +425,9 @@ void U(int direction, int* cube)
 	}
 }
 
-//Back face rotation
+
+//Back face rotation function. Similar to R(). Same concept but does everything
+//relative to the back face
 void B(int direction, int* cube)
 {
 
@@ -403,7 +437,7 @@ void B(int direction, int* cube)
 		flip();
 		flip();
 		flip();
-	  hold();
+	  	hold();
 		rotate(CCW + WHACKER_OFFSET);
 		returnWhacker();
 		flip();
@@ -465,7 +499,8 @@ void B(int direction, int* cube)
 	}
 }
 
-//Front Face Rotation
+//front face rotation function. Similar to R(). Same concept but does everything
+//relative to the front face
 void F(int direction, int* cube)
 {
 	if(direction==CW)
@@ -534,6 +569,9 @@ void F(int direction, int* cube)
 
 //Algorithms
 
+//All the algorithm functions have cube as param as the rotation functions need
+//it in order to update the virtual cube as well. Algorithms of solving the cube
+//are a different combinations of the rotation functions
 void alg1(int* cube)
 {
 	R(CW, cube);
