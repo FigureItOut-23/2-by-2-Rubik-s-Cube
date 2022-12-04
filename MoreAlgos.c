@@ -1,13 +1,24 @@
+//7 functions
+#include "Algos.c" //includes code from file "Algos.c"
 
-	//7 functions
-#include "Algos.c"
+/*
+Purpose of file:
+After white has been solved and bottom row of cube relative to front face has 
+been set up, the face opposite to white has to be solved. This file is 
+responsible for solving the top yellow face.
 
+*/
+
+//The manual used to find out how to solve the cube, states that at this point
+//in the solving process, there are 7 possible cases for the layout of the top
+//layer. This function finds which of the 7 cases the cube is in
 
 int findCase(int* cube)
 {
-	int yellow_counter = 0;
+	int yellow_counter = 0; //accumulator to keep track of number of yellow
+	//pieces on top face
 
-	for(int num =0; num<4; num++)
+	for(int num =0; num<4; num++) //num represents the 4 blocks of the top face
 	{
 
 		if(cube[num]==0)//yellow = 1
@@ -17,7 +28,7 @@ int findCase(int* cube)
 
 	}
 
-	if (yellow_counter==4)
+	if (yellow_counter==4) //top face is all yellow (solved)...
 	{
 	 return 0; //do nothing and move on
 	}
@@ -366,12 +377,14 @@ void orientFace(int* cube)
 }
 void setUpTop()
 {
-	while(cube[23] != colourWhite || cube [12] != colourWhite || cube[3] != colourWhite || cube[23] != colourWhite)
+	while(cube[23] != colourWhite || cube [12] != colourWhite || cube[3] 
+	!= colourWhite || cube[23] != colourWhite)
 	{
 		U(CW, top);
 	}
 }
-void whiteOnTop(int* cube) //have function that rotates the top until in position c,j, or m)
+void whiteOnTop(int* cube) //have function that rotates the top
+// until in position c,j, or m. c, j and m representing cube indices.
 {	
 int colourWhite = 2;
 	if(cube[23] == colourWhite  && cube [20] == colourWhite) // if j and k
@@ -800,7 +813,9 @@ void solvingWhite(int *cube)
 
 //void setUpBottomRows(int* cube)
 //{
-//	while(cube[22] != colourOrange && cube[23] != colourOrange && cube[14] != colourBlue && cube[15] != colourBlue) // front bottom row and left bottom row equal respective colours
+//	while(cube[22] != colourOrange && cube[23] != colourOrange && cube[14] 
+!= colourBlue && cube[15] != colourBlue) // front bottom row and left bottom 
+//row equal respective colours
 //	{
 //		//special algo one! that works relative to this orientation I think
 //	}
