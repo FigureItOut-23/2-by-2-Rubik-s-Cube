@@ -3,7 +3,9 @@
 
 void FinishCube(int * cube)
 {
-	if (cube[22]!=cube[23] && cube[4]!=cube[7] && cube[18]!=cube[19] && cube[13]!=cube[14]) //No top face is solved
+//How to finish if no top face is solved
+	if (cube[22]!=cube[23] && cube[4]!=cube[7] && cube[18]!=cube[19] 
+      && cube[13]!=cube[14]) 
 		{
 			while(cube[22]!=cube[21])
 			{
@@ -14,8 +16,9 @@ void FinishCube(int * cube)
 
 	}
 
-
-	if(cube[22]==cube[23] && cube[4]==cube[7] && cube[18]==cube[19] && cube[13]==cube[14]) //All faces are solved
+//How to finish if all faces are solved
+	if(cube[22]==cube[23] && cube[4]==cube[7] && cube[18]==cube[19] 
+     && cube[13]==cube[14]) 
 	{
 		while(cube[22]!=1)
 		{
