@@ -495,7 +495,7 @@ void solvingWhite(int *cube)
   
   int tempArray[12] = {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9};
   
-  indexFace = 0;
+  
 	if(indexFace == 0) //if face with most white is the top
 	{
     
