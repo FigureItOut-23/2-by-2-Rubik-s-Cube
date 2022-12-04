@@ -373,6 +373,7 @@ void setUpTop()
 }
 void whiteOnTop(int* cube) //have function that rotates the top until in position c,j, or m)
 {	
+int colourWhite = 2;
 	if(cube[23] == colourWhite  && cube [20] == colourWhite) // if j and k
 	{
 		R(CCW, cube);
@@ -664,7 +665,7 @@ void solvingWhite(int *cube)
     cube[20] = cube[2];
     cube[21] = cube[3];
     cube[22] = cube[0];
-    cube[21] = cube[1];
+    cube[23] = cube[1];
     for (int k =0; k <4; k++)
     {
       cube[k] = tempArray[k];
@@ -783,21 +784,13 @@ void solvingWhite(int *cube)
         printf("\n");
     }
 
-	if(numOfWhite == 1){
-		while(V == colourWhite)
-		{
-			D(); // rotate bottom function
-	 	}
-	 	whiteOnTop();
-	 	
-	}
-	//
-	
+
 	while(whiteAccumulator[indexFace] < 4)
 	{
 		while(cube[8] == colourWhite) //white bottom corner top right
 		{
-			D(CW, cube); // rotate bottom function //make one
+			U(CW, cube); // rotate bottom function //make one
+			rot(CCW, cube); //this is instead 
 	 	}
 	 	setUpTop(); //gonna loop infinetely as it doesnt take c into account
 		whiteOnTop();
@@ -805,32 +798,32 @@ void solvingWhite(int *cube)
 	
 }
 
-void setUpBottomRows(int* cube)
-{
-	while(cube[22] != colourOrange && cube[23] != colourOrange && cube[14] != colourBlue && cube[15] != colourBlue) // front bottom row and left bottom row equal respective colours
-	{
-		//special algo one! that works relative to this orientation I think
-	}
-}
+//void setUpBottomRows(int* cube)
+//{
+//	while(cube[22] != colourOrange && cube[23] != colourOrange && cube[14] != colourBlue && cube[15] != colourBlue) // front bottom row and left bottom row equal respective colours
+//	{
+//		//special algo one! that works relative to this orientation I think
+//	}
+//}
 
 int main()
 {
 int cube[24];
-cube[0]=0;	//5
-cube[1]=0;	//3
-cube[2]=0;
+cube[0]= 5;	//5
+cube[1]=4;	//3
+cube[2]=2;
 cube[3]=0;
-cube[4]=1;
-cube[5]=1;
-cube[6]=1;
-cube[7]=1;
-cube[8]=2;
-cube[9]=2;
-cube[10]=2;
-cube[11]=2;
-cube[12]=3;
-cube[13]=3;
-cube[14]=3;
+cube[4]=2;
+cube[5]=2;
+cube[6]=3;
+cube[7]=3;
+cube[8]=1;
+cube[9]=1;
+cube[10]=0;
+cube[11]=0;
+cube[12]=2;
+cube[13]=0;
+cube[14]=1;
 cube[15]=3;
 cube[16]=4;
 cube[17]=4;
@@ -839,6 +832,14 @@ cube[19]=4;
 cube[20]=5;
 cube[21]=5;
 cube[22]=5;
+cube[23]=5;
+cube[16]=4;
+cube[17]=5;
+cube[18]=3;
+cube[19]=1;
+cube[20]=5;
+cube[21]=4;
+cube[22]=4;
 cube[23]=5;
 
 int num = findCase(cube);

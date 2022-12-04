@@ -2,38 +2,56 @@
 
 void rotate(int angle)
 {
-/*
 	cur_angle += angle;
-	motor[motorD] = TURN_POW*(angle/abs(angle));
-	if(getMotorEncoder(motorD) < cur_angle)
+	motor[ROTATOR_MOTOR] = TURN_POW*(angle/abs(angle));
+	if(getMotorEncoder(ROTATOR_MOTOR) < cur_angle)
 	{
-		while(getMotorEncoder(motorD) < cur_angle)
+		while(getMotorEncoder(ROTATOR_MOTOR) < cur_angle)
 		{}
 	}
 	else{
-		while(getMotorEncoder(motorD) > cur_angle)
+		while(getMotorEncoder(ROTATOR_MOTOR) > cur_angle)
 		{}
 	}
-	motor[motorD] = 0;
-*/
+	motor[ROTATOR_MOTOR] = 0;
 }
+
+void finishingMove(int angle, int final_pow)
+{
+	cur_angle += angle;
+	motor[ROTATOR_MOTOR] = final_pow*(angle/abs(angle));
+	if(getMotorEncoder(ROTATOR_MOTOR) < cur_angle)
+	{
+		while(getMotorEncoder(ROTATOR_MOTOR) < cur_angle)
+		{}
+	}
+	else{
+		while(getMotorEncoder(ROTATOR_MOTOR) > cur_angle)
+		{}
+	}
+	motor[ROTATOR_MOTOR] = 0;
+  motor[WHACKER_MOTOR] = final_pow;
+	wait1Msec(10000);
+  motor[WHACKER_MOTOR] = 0;
+}
+
 
 void rot(int angle, int * cube)
 {
-	/*
+
 	cur_angle += angle;
-	motor[motorD] = TURN_POW*(angle/abs(angle));
-	if(getMotorEncoder(motorD) < cur_angle)
+	motor[ROTATOR_MOTOR] = TURN_POW*(angle/abs(angle));
+	if(getMotorEncoder(ROTATOR_MOTOR) < cur_angle)
 	{
-		while(getMotorEncoder(motorD) < cur_angle)
+		while(getMotorEncoder(ROTATOR_MOTOR) < cur_angle)
 		{}
 	}
 	else{
-		while(getMotorEncoder(motorD) > cur_angle)
+		while(getMotorEncoder(ROTATOR_MOTOR) > cur_angle)
 		{}
 	}
-	motor[motorD] = 0;
-*/
+	motor[ROTATOR_MOTOR] = 0;
+
 
 	//Move Virtual Cube
 	if(angle < 0)
@@ -136,49 +154,114 @@ void rot(int angle, int * cube)
 
 void flip()
 {
-/*
+
 	//Flip cube
-	motor[motorA] = -15;
-	nMotorEncoder[motorA] = 0;
-	while(abs(nMotorEncoder[motorA]) < 95)
+	motor[FLIPPER_MOTOR] = -15;
+	nMotorEncoder[FLIPPER_MOTOR] = 0;
+	while(abs(nMotorEncoder[FLIPPER_MOTOR]) < 95)
 	{}
-	motor[motorA] = 0;
-	motor[motorA] = 10;
+	motor[FLIPPER_MOTOR] = 0;
+	motor[FLIPPER_MOTOR] = 10;
 	wait1Msec(1500);
-	motor[motorA] = 0;
+	motor[FLIPPER_MOTOR] = 0;
 
 	//Whack Cube
-	motor[motorB] = -20;
+	motor[WHACKER_MOTOR] = -20;
 	wait1Msec(1000);
-	motor[motorB] = 0;
-	motor[motorB] = 20;
+	motor[WHACKER_MOTOR] = 0;
+	motor[WHACKER_MOTOR] = 20;
 	wait1Msec(1000);
-	motor[motorB] = 0;
-	*/
+	motor[WHACKER_MOTOR] = 0;
+
 }
+
+void trackedflip(int * cube)
+{
+
+	//Flip cube
+	motor[FLIPPER_MOTOR] = -15;
+	nMotorEncoder[FLIPPER_MOTOR] = 0;
+	while(abs(nMotorEncoder[FLIPPER_MOTOR]) < 95)
+	{}
+	motor[FLIPPER_MOTOR] = 0;
+	motor[FLIPPER_MOTOR] = 10;
+	wait1Msec(1500);
+	motor[FLIPPER_MOTOR] = 0;
+
+	//Whack Cube
+	motor[WHACKER_MOTOR] = -20;
+	wait1Msec(1000);
+	motor[WHACKER_MOTOR] = 0;
+	motor[WHACKER_MOTOR] = 20;
+	wait1Msec(1000);
+	motor[WHACKER_MOTOR] = 0;
+
+
+				int temp[24];
+			//Front Rotation
+			temp[0]=cube[23];
+			cube[23]=cube[20];
+			cube[20]=cube[21];
+			cube[21]=cube[22];
+			cube[22]=temp[0];
+
+			//Back Rotation
+
+			temp[1]=cube[16];
+			cube[16]=cube[19];
+			cube[19]=cube[18];
+			cube[18]=cube[17];
+			cube[17]=temp[1];
+
+			//Sides Rotation
+			//Store Top into Temp Array
+
+			temp[2]=cube[0];
+			temp[3]=cube[1];
+			temp[4]=cube[2];
+			temp[5]=cube[3];
+
+			cube[0]=cube[4];
+			cube[1]=cube[5];
+			cube[2]=cube[6];
+			cube[3]=cube[7];
+
+			cube[4]=cube[8];
+			cube[5]=cube[9];
+			cube[6]=cube[10];
+			cube[7]=cube[11];
+
+			cube[8]=cube[12];
+			cube[9]=cube[13];
+			cube[10]=cube[14];
+			cube[11]=cube[15];
+
+			cube[12]=temp[2];
+			cube[13]=temp[3];
+			cube[14]=temp[4];
+			cube[15]=temp[5];
+
+}
+
 
 
 
 void hold()
 {
-/*
-	nMotorEncoder[motorB] = 0;
-  motor[motorB] = -20;
+
+	nMotorEncoder[WHACKER_MOTOR] = 0;
+  motor[WHACKER_MOTOR] = -20;
 wait1Msec(700);
-motor[motorB] = 0;
-*/
+motor[WHACKER_MOTOR] = 0;
+
 }
 
 void returnWhacker()
 {
-/*
-	motor[motorB] = -20;
-	wait1Msec(500);
-  motor[motorB] = 0;
-  motor[motorB] = 20;
+  motor[WHACKER_MOTOR] = 20;
 	wait1Msec(1000);
-  motor[motorB] = 0;
-*/
+  motor[WHACKER_MOTOR] = 0;
+
 }
 
 
@@ -191,10 +274,9 @@ void R(int direction, int* cube)
 		rotate(CW);//Rotate 180 degrees
 		flip();
 		hold();
-		rotate(CCW + WACKER_OFFSET);
-		//wait1Msec(100000);
+		rotate(CCW + WHACKER_OFFSET);
 		returnWhacker();
-		rotate(CCW - WACKER_OFFSET);
+		rotate(CCW - WHACKER_OFFSET);
     flip();
     //rotate(-20);
     //Map Virtual Cube
@@ -224,9 +306,9 @@ void R(int direction, int* cube)
 		rotate(CW);//Rotate 180 degrees
 		flip();
 		hold();
-		rotate(CW - WACKER_OFFSET);
+		rotate(CW - WHACKER_OFFSET);
     returnWhacker();
-		rotate(CW + WACKER_OFFSET);
+		rotate(CW + WHACKER_OFFSET);
 		flip();
 		//Map Virtual Cube
 		int temp[3]={0,0,0};
@@ -259,9 +341,9 @@ void U(int direction, int* cube)
 	if(direction==CW)
 	{
 		hold();
-		rotate(CCW + WACKER_OFFSET);
+		rotate(CCW + WHACKER_OFFSET);
 		returnWhacker();
-		rotate(CW - WACKER_OFFSET);
+		rotate(CW - WHACKER_OFFSET);
 		//Map Virtual Cube
 		int temp[3]={0,0,0};
 
@@ -286,9 +368,9 @@ void U(int direction, int* cube)
 	else
 	{
 		hold();
-		rotate(CW - WACKER_OFFSET);
+		rotate(CW - WHACKER_OFFSET);
 		returnWhacker();
-		rotate(CCW + WACKER_OFFSET);
+		rotate(CCW + WHACKER_OFFSET);
 		//Map Virtual Cube
 		int temp[3]={0,0,0};
 
@@ -322,10 +404,10 @@ void B(int direction, int* cube)
 		flip();
 		flip();
 	  hold();
-		rotate(CCW + WACKER_OFFSET);
+		rotate(CCW + WHACKER_OFFSET);
 		returnWhacker();
 		flip();
-		rotate(CW - WACKER_OFFSET);
+		rotate(CW - WHACKER_OFFSET);
 
 		//Map Virtual Cube
 		int temp[3]={0,0,0};
@@ -355,10 +437,11 @@ void B(int direction, int* cube)
 		flip();
 		flip();
 		hold();
-		rotate(CW - WACKER_OFFSET);
+		rotate(CW - WHACKER_OFFSET);
 		returnWhacker();
+		rotate(WHACKER_OFFSET);
 		flip();
-		rotate(CW + WACKER_OFFSET);
+		rotate(CW);
 
 		//Map Virtual Cube
 		int temp[3]={0,0,0};
@@ -390,9 +473,9 @@ void F(int direction, int* cube)
   	rotate(CW);
 		flip();
 		hold();
-		rotate(CCW + WACKER_OFFSET);
+		rotate(CCW + WHACKER_OFFSET);
 		returnWhacker();
-		rotate(CCW - WACKER_OFFSET);
+		rotate(CCW - WHACKER_OFFSET);
 		flip();
 		rotate(CW);
 		//Map Virtual Cube
@@ -421,9 +504,9 @@ void F(int direction, int* cube)
 		rotate(CW);
 		flip();
 		hold();
-		rotate(CW - WACKER_OFFSET);
+		rotate(CW - WHACKER_OFFSET);
 		returnWhacker();
-		rotate(CW + WACKER_OFFSET);
+		rotate(CW + WHACKER_OFFSET);
 		flip();
 		rotate(CW);
 

@@ -82,7 +82,7 @@ cube[23]=0;    //
 	int colour_boundaries_green[6] = {0,0,0,0,0,0};
 	int colour_boundaries_blue[6] = {0,0,0,0,0,0};
 
-	/*
+
 	while(SensorValue[S3] > 7)
 	{}
 	wait1Msec(5000);
@@ -101,8 +101,8 @@ cube[23]=0;    //
 	motor[motorC] = 0;
 	wait1Msec(500);
 	playSound(soundBeepBeep);
-	*/
-	//ScanCube(cube, colour_boundaries_red, colour_boundaries_green, colour_boundaries_blue);
+
+	ScanCube(cube, colour_boundaries_red, colour_boundaries_green, colour_boundaries_blue);
 	bro = findCase(cube);
 	findCase(cube);
 	orientFace(cube);
