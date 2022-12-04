@@ -1,12 +1,29 @@
-#include "MovementFunctions.c";
+#include "MovementFunctions.c"; //icludes code from the file 
+//"MovementFunctions.c"
 
-void CalibrateColourSensor(int* colour_boundaries_red, int* colour_boundaries_green, int* colour_boundaries_blue)
+/*
+Purpose of File:
+To calibrate the colour sensors, and get the colour values of the physical cube
+and to mimic them in order to create a virtual cube of the same orientation 
+(scramble). 
+
+This file also implements a menu system so that we can double check the colour
+values chosen by the code so that the cube array does not come out wrong. Very 
+essential to have such a system in place as even one wrong colour value 
+completely ruins the solving process.
+
+*/
+
+//Function to calibrate colour sensor
+void CalibrateColourSensor(int* colour_boundaries_red, 
+int* colour_boundaries_green, int* colour_boundaries_blue)
 {
-	for(int face = 0; face < 6; face++)
+	for(int face = 0; face < 6; face++) //for loop to go through all faces of 
+	//cube
 	{
 		int col_blue, col_red, col_green = 0;
 
-		cur_angle -= 360;
+		cur_angle -= 360; 
 		int highest_RGB[3] = {0,0,0};
 		motor[ROTATOR_MOTOR] = -TURN_POW/2;
 		while(getMotorEncoder(ROTATOR_MOTOR) > cur_angle)
@@ -73,10 +90,13 @@ void CalibrateColourSensor(int* colour_boundaries_red, int* colour_boundaries_gr
 	}
 }
 
+//function that returns a boolean indicating whether the two colours are the 
+//same
 bool ScanCorner(int* curScan, int compRed, int compGreen, int compBlue)
 {
 	const int OFFSET = 4;
-	if(abs(curScan[0] - compRed) <= OFFSET && abs(curScan[1] - compGreen) <= OFFSET && abs(curScan[2] - compBlue) <= OFFSET)
+	if(abs(curScan[0] - compRed) <= OFFSET && abs(curScan[1] - compGreen)
+	<= OFFSET && abs(curScan[2] - compBlue) <= OFFSET)
 	{
 		return true;
 	}
@@ -85,6 +105,8 @@ bool ScanCorner(int* curScan, int compRed, int compGreen, int compBlue)
 	}
 }
 
+//helper function that takes an integer and returns a string value of the 
+//corresponding colour
 char* intToColour(int col)
 {
 		switch(col)
@@ -104,12 +126,13 @@ char* intToColour(int col)
 		};
 		return "Yellow";
 }
-
-void ScanCube(int* full_cube, int* colour_boundaries_red, int* colour_boundaries_green, int* colour_boundaries_blue)
+// the function that scans the cube (majority of code)
+void ScanCube(int* full_cube, int* colour_boundaries_red, 
+int* colour_boundaries_green, int* colour_boundaries_blue)
 {
 	for(int face = 0; face < 6; face++)
 	{
-		for(int count = 0; count < 4; count++)
+		for(int count = 0; count < 4; count++) //for each block of a face...
 		{
 			int col[3] = {0,0,0};
 			wait1Msec(100);
@@ -119,14 +142,18 @@ void ScanCube(int* full_cube, int* colour_boundaries_red, int* colour_boundaries
 			//Scanning Logic
 			for(int count2 = 5; count2 >= 0; count2--)
 			{
-				if(ScanCorner(col, colour_boundaries_red[count2], colour_boundaries_green[count2], colour_boundaries_blue[count2]))
+				if(ScanCorner(col, colour_boundaries_red[count2], 
+				colour_boundaries_green[count2], 
+				colour_boundaries_blue[count2]))
 				{
 					full_cube[(face * CORNERS_ON_FACE) + count] = count2;
 					break;
 				}
 			}
+			//menus system to confirm colour
 			displayString(2, "Is this the correct color");
-			displayString(3, "%s", intToColour(full_cube[(face * CORNERS_ON_FACE) + count]));
+			displayString(3, "%s", 
+			intToColour(full_cube[(face * CORNERS_ON_FACE) + count]));
 			while(!getButtonPress(buttonAny)){}
 			bool correctColour = true;
 			if(!getButtonPress(buttonEnter)){
@@ -140,12 +167,13 @@ void ScanCube(int* full_cube, int* colour_boundaries_red, int* colour_boundaries
 				while(colCount != -1)
 				{
 					eraseDisplay();
+					//Code to select correct colour if wrong one was picked
 					displayString(4, "Select correct colour");
 					displayString(5, "%s", intToColour(colCount % 6));
 					while(!getButtonPress(buttonAny)){}
 					if(getButtonPress(buttonEnter))
 					{
-						full_cube[(face * CORNERS_ON_FACE) + count] = colCount % 6;
+						full_cube[(face * CORNERS_ON_FACE) + count] =colCount%6;
 						colCount = -1;
 					}
 					else
